@@ -33,6 +33,10 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
 
+  /* Brand utility colors — remapped for LIGHT theme.
+     Names are preserved so existing className utilities keep working,
+     but the underlying values are inverted: "matte-black" is now the
+     near-white page surface, "ivory" is the dark ink text. */
   --color-matte-black: var(--matte-black);
   --color-charcoal: var(--charcoal);
   --color-gold: var(--gold);
@@ -40,51 +44,52 @@
   --color-amber: var(--amber);
   --color-ivory: var(--ivory);
   --color-ivory-muted: var(--ivory-muted);
+  --color-ink: var(--ink);
 }
 
 :root {
   --radius: 0.25rem;
 
-  /* Brand */
-  --matte-black: oklch(0.145 0 0);          /* #0D0D0D */
-  --charcoal: oklch(0.205 0 0);             /* #1C1C1E */
-  --gold: oklch(0.78 0.13 86);              /* #D4AF37 */
-  --gold-soft: oklch(0.82 0.09 86);
-  --amber: oklch(0.43 0.09 55);             /* #7A4A1A */
-  --ivory: oklch(0.955 0.012 95);           /* #F5F2E9 */
-  --ivory-muted: oklch(0.78 0.012 95);
+  /* Light brand palette */
+  --matte-black: oklch(0.995 0.003 95);   /* page surface — near-white ivory */
+  --charcoal:    oklch(0.965 0.008 90);   /* card / soft surface */
+  --gold:        oklch(0.74 0.13 80);     /* #C9A24A warm gold */
+  --gold-soft:   oklch(0.82 0.10 86);
+  --amber:       oklch(0.55 0.11 60);
+  --ivory:       oklch(0.18 0.01 80);     /* primary ink text */
+  --ivory-muted: oklch(0.45 0.01 80);     /* secondary text */
+  --ink:         oklch(0.14 0 0);         /* true dark for on-gold buttons */
 
-  /* Map shadcn semantic tokens onto the brand */
+  /* Map shadcn semantic tokens onto the light brand */
   --background: var(--matte-black);
   --foreground: var(--ivory);
   --card: var(--charcoal);
   --card-foreground: var(--ivory);
-  --popover: var(--charcoal);
+  --popover: #ffffff;
   --popover-foreground: var(--ivory);
   --primary: var(--gold);
-  --primary-foreground: var(--matte-black);
+  --primary-foreground: var(--ink);
   --secondary: var(--charcoal);
   --secondary-foreground: var(--ivory);
-  --muted: oklch(0.25 0 0);
+  --muted: oklch(0.95 0.005 90);
   --muted-foreground: var(--ivory-muted);
   --accent: var(--gold);
-  --accent-foreground: var(--matte-black);
-  --destructive: oklch(0.6 0.22 25);
-  --destructive-foreground: var(--ivory);
-  --border: oklch(1 0 0 / 12%);
-  --input: oklch(1 0 0 / 15%);
+  --accent-foreground: var(--ink);
+  --destructive: oklch(0.55 0.22 25);
+  --destructive-foreground: #ffffff;
+  --border: oklch(0 0 0 / 10%);
+  --input: oklch(0 0 0 / 14%);
   --ring: var(--gold);
 
   /* Effects */
-  --gradient-gold: linear-gradient(135deg, oklch(0.82 0.13 86), oklch(0.7 0.13 70));
-  --gradient-hero: radial-gradient(ellipse at 70% 40%, oklch(0.32 0.06 70 / 0.45), transparent 60%),
-                   linear-gradient(180deg, oklch(0.12 0 0) 0%, oklch(0.06 0 0) 100%);
-  --shadow-gold: 0 20px 60px -20px color-mix(in oklab, var(--gold) 35%, transparent);
-  --shadow-elevated: 0 30px 80px -30px oklch(0 0 0 / 0.8);
+  --gradient-gold: linear-gradient(135deg, oklch(0.78 0.13 86), oklch(0.62 0.12 65));
+  --gradient-hero: radial-gradient(ellipse at 75% 40%, oklch(0.92 0.06 85 / 0.55), transparent 60%),
+                   linear-gradient(180deg, oklch(0.995 0.003 95) 0%, oklch(0.96 0.008 90) 100%);
+  --shadow-gold: 0 20px 60px -20px color-mix(in oklab, var(--gold) 40%, transparent);
+  --shadow-elevated: 0 30px 80px -30px oklch(0 0 0 / 0.25);
 }
 
 .dark {
-  /* App is dark by default; keep .dark identical */
   --background: var(--matte-black);
   --foreground: var(--ivory);
 }

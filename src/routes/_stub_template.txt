@@ -1,7 +1,0 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { ComingSoon } from "@/components/site/ComingSoon";
-
-export const Route = createFileRoute("__PATH__")({
-  head: () => ({ meta: [{ title: "__TITLE__ — LAMISENT ESSENCE" }, { name: "description", content: "__DESC__" }] }),
-  component: () => <ComingSoon title="__TITLE__" intro="__INTRO__" />,
-});

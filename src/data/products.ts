@@ -36,7 +36,7 @@ export const PRODUCTS: Product[] = [
     inspired: "Inspiriert von Louis Vuitton Imagination",
     family: "Holzig · Würzig",
     image: imagination.url,
-    sizes: SIZES(29.9),
+    sizes: FIXED_SIZES,
   },
   {
     slug: "rouge-540",
@@ -44,7 +44,7 @@ export const PRODUCTS: Product[] = [
     inspired: "Inspiriert von Baccarat Rouge 540",
     family: "Amber · Floral",
     image: rouge540.url,
-    sizes: SIZES(29.9),
+    sizes: FIXED_SIZES,
   },
   {
     slug: "naxos",
@@ -52,7 +52,7 @@ export const PRODUCTS: Product[] = [
     inspired: "Inspiriert von Xerjoff Naxos",
     family: "Tabak · Honig",
     image: naxos.url,
-    sizes: SIZES(29.9),
+    sizes: FIXED_SIZES,
   },
   {
     slug: "althair",
@@ -60,7 +60,7 @@ export const PRODUCTS: Product[] = [
     inspired: "Inspiriert von Parfums de Marly Althaïr",
     family: "Vanille · Mandel",
     image: althair.url,
-    sizes: SIZES(29.9),
+    sizes: FIXED_SIZES,
   },
   {
     slug: "blonde-amber",
@@ -68,7 +68,7 @@ export const PRODUCTS: Product[] = [
     inspired: "Inspiriert von Clive Christian Blonde Amber",
     family: "Amber · Leder",
     image: blondeAmber.url,
-    sizes: SIZES(34.9),
+    sizes: FIXED_SIZES,
   },
   {
     slug: "kirke",
@@ -76,7 +76,7 @@ export const PRODUCTS: Product[] = [
     inspired: "Inspiriert von Tiziana Terenzi Kirke",
     family: "Frucht · Patchouli",
     image: kirke.url,
-    sizes: SIZES(29.9),
+    sizes: FIXED_SIZES,
   },
   {
     slug: "angels-share",
@@ -84,7 +84,7 @@ export const PRODUCTS: Product[] = [
     inspired: "Inspiriert von Kilian Angels' Share",
     family: "Cognac · Tonka",
     image: angelShare.url,
-    sizes: SIZES(29.9),
+    sizes: FIXED_SIZES,
   },
   {
     slug: "blue-talisman",
@@ -92,7 +92,7 @@ export const PRODUCTS: Product[] = [
     inspired: "Inspiriert von Ex Nihilo Blue Talisman",
     family: "Aquatisch · Iris",
     image: blueTalisman.url,
-    sizes: SIZES(29.9),
+    sizes: FIXED_SIZES,
   },
   {
     slug: "reflection",
@@ -100,7 +100,7 @@ export const PRODUCTS: Product[] = [
     inspired: "Inspiriert von Amouage Reflection Man",
     family: "Floral · Holzig",
     image: reflection.url,
-    sizes: SIZES(32.9),
+    sizes: FIXED_SIZES,
   },
   {
     slug: "side-effect",
@@ -108,7 +108,7 @@ export const PRODUCTS: Product[] = [
     inspired: "Inspiriert von Initio Side Effect",
     family: "Tabak · Vanille",
     image: sideEffect.url,
-    sizes: SIZES(32.9),
+    sizes: FIXED_SIZES,
   },
 ];
 

@@ -14,6 +14,7 @@ import deckCover from "@/assets/lam/deck-cover.png.asset.json";
 import bannerLight from "@/assets/lam/banner-light.png.asset.json";
 import bannerDark from "@/assets/lam/banner-dark.png.asset.json";
 import heroVideo from "@/assets/lam/hero-video.mp4.asset.json";
+import adBanner from "@/assets/lam/add-in-website-banner.png.asset.json";
 
 import { PRODUCTS, EUR, type Product } from "@/data/products";
 

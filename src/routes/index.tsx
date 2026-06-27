@@ -289,7 +289,7 @@ function ProductCard({ product: p, discount = 0 }: { product: Product; discount?
   return (
     <article className="group relative flex flex-col overflow-hidden rounded-sm border border-border bg-charcoal/40 transition-all hover:border-gold/40">
       <a href={`/produkte/${p.slug}`} className="relative block aspect-[4/5] overflow-hidden bg-charcoal">
-        <img src={p.image} alt={p.name} className="h-full w-full object-contain p-10 transition-transform duration-700 group-hover:scale-105" />
+        <img src={p.coverImage ?? p.image} alt={`${p.name} Cover`} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
         {discount > 0 && (
           <span className="absolute left-3 top-3 bg-gold px-2 py-1 text-[9px] uppercase tracking-luxury text-ink">
             -{Math.round(discount * 100)}%

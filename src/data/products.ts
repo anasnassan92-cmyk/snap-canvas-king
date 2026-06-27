@@ -20,13 +20,14 @@ export type Product = {
   sizes: Size[];
 };
 
-// 4 sizes per product: 8 ML, 30 ML, 50 ML, 100 ML
-const SIZES = (base: number): Size[] => [
-  { ml: 8, price: +(base * 0.35).toFixed(2) },
-  { ml: 30, price: base },
-  { ml: 50, price: +(base * 1.55).toFixed(2) },
-  { ml: 100, price: +(base * 2.7).toFixed(2) },
+// Fixed prices across all products
+const FIXED_SIZES: Size[] = [
+  { ml: 8, price: 15.99 },
+  { ml: 30, price: 29.9 },
+  { ml: 50, price: 44.9 },
+  { ml: 100, price: 69.9 },
 ];
+
 
 export const PRODUCTS: Product[] = [
   {

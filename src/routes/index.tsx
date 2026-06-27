@@ -155,7 +155,7 @@ function Home() {
         </div>
       </section>
 
-      {/* CINEMATIC VERTICAL VIDEOS */}
+      {/* CINEMATIC VERTICAL VIDEO — loops through both clips in the same frame */}
       <section className="bg-background py-24">
         <div className="mx-auto max-w-7xl px-6">
           <div className="text-center">
@@ -164,18 +164,17 @@ function Home() {
               LAMISENT in <span className="text-gold-gradient">Bewegung</span>
             </h2>
             <p className="mx-auto mt-5 max-w-xl text-sm leading-relaxed text-ivory-muted">
-              Eingefangene Momente — die Essenz unserer Düfte in zwei kurzen Filmen.
+              Eingefangene Momente — die Essenz unserer Düfte in Bewegung.
             </p>
           </div>
-          <div className="mx-auto mt-14 grid max-w-4xl gap-6 sm:grid-cols-2">
-            {[heroVideo.url, heroVideo2.url].map((src) => (
-              <div key={src} className="relative overflow-hidden rounded-sm border border-border bg-charcoal" style={{ aspectRatio: "9 / 16" }}>
-                <video src={src} autoPlay muted loop playsInline className="h-full w-full object-cover" />
-              </div>
-            ))}
+          <div className="mx-auto mt-14 max-w-sm">
+            <div className="relative overflow-hidden rounded-sm border border-border bg-charcoal" style={{ aspectRatio: "9 / 16" }}>
+              <VideoLoop sources={[heroVideo.url, heroVideo2.url]} />
+            </div>
           </div>
         </div>
       </section>
+
 
       <ProductSection eyebrow="Bestseller" title="Kundenfavoriten" products={BESTSELLERS} />
 

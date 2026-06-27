@@ -1,4 +1,3 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { AnnouncementBar } from "@/components/site/AnnouncementBar";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
@@ -23,6 +22,3 @@ export function ComingSoon({ title, intro }: { title: string; intro: string }) {
     </div>
   );
 }
-
-// re-export to satisfy createFileRoute requirements in stub files
-export const Route = createFileRoute as never;

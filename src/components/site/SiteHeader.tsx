@@ -47,7 +47,7 @@ export function SiteHeader() {
             className="relative transition-colors hover:text-gold"
           >
             <ShoppingBag className="h-4 w-4" />
-            <span className="absolute -right-2 -top-2 inline-flex h-4 min-w-4 items-center justify-center rounded-full bg-gold px-1 text-[9px] font-semibold text-matte-black">
+            <span className="absolute -right-2 -top-2 inline-flex h-4 min-w-4 items-center justify-center rounded-full bg-gold px-1 text-[9px] font-semibold text-ink">
               0
             </span>
           </a>

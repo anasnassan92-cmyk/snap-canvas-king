@@ -12,6 +12,9 @@ import boxSingle from "@/assets/lam/box-single.png.asset.json";
 import boxDiscovery from "@/assets/lam/box-discovery-set.png.asset.json";
 import deckColour from "@/assets/lam/deck-colour.png.asset.json";
 import deckCover from "@/assets/lam/deck-cover.png.asset.json";
+import bannerLight from "@/assets/lam/banner-light.png.asset.json";
+import bannerDark from "@/assets/lam/banner-dark.png.asset.json";
+import heroVideo from "@/assets/lam/hero-video.mp4.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -169,62 +172,77 @@ function Home() {
       <AnnouncementBar />
       <SiteHeader />
 
-      {/* HERO */}
-      <section className="relative isolate overflow-hidden bg-hero pb-20 pt-44 md:pb-32 md:pt-52">
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 -z-10 opacity-60"
-          style={{
-            backgroundImage: `radial-gradient(circle at 75% 45%, color-mix(in oklab, var(--gold) 22%, transparent), transparent 55%)`,
-          }}
-        />
-        <div className="mx-auto grid max-w-7xl items-center gap-12 px-6 md:grid-cols-[1.05fr_1fr]">
-          <div>
-            <p className="mb-5 text-[11px] uppercase tracking-luxury text-gold">
-              Extrait de Parfum · Made for Men
-            </p>
-            <h1 className="text-balance text-[44px] font-semibold uppercase leading-[1.05] tracking-[0.02em] text-ivory md:text-[68px]">
-              Duft, der deine
-              <br />
-              <span className="text-gold-gradient">Geschichte</span> erzählt.
-            </h1>
-            <p className="mt-6 max-w-md text-base leading-relaxed text-ivory-muted">
-              LAMISENT ESSENCE übersetzt die Sprache großer Parfumeurshäuser in
-              ein Extrait, das bleibt. Hergestellt in kleinen Chargen, mit
-              kompromissloser Konzentration.
-            </p>
-            <p className="mt-8 font-display text-sm uppercase tracking-luxury text-gold">
-              Impress. Inspire. Remain.
-            </p>
-            <div className="mt-10 flex flex-wrap items-center gap-4">
-              <a
-                href="/produkte"
-                className="group inline-flex items-center gap-3 rounded-sm bg-gold px-7 py-3.5 text-[11px] uppercase tracking-luxury text-matte-black transition-all hover:bg-gold-soft"
-                style={{ boxShadow: "var(--shadow-gold)" }}
-              >
-                Jetzt entdecken
-                <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
-              </a>
-              <a
-                href="/sets"
-                className="inline-flex items-center gap-3 border border-border px-7 py-3.5 text-[11px] uppercase tracking-luxury text-ivory transition-colors hover:border-gold hover:text-gold"
-              >
-                Discovery Set
-              </a>
-            </div>
+      {/* HERO — landscape banner */}
+      <section className="relative isolate overflow-hidden bg-background pt-[92px]">
+        <div className="relative">
+          <img
+            src={bannerLight.url}
+            alt="LAMISENT ESSENCE — Extrait de Parfum"
+            className="block h-auto w-full object-cover"
+            fetchPriority="high"
+          />
+        </div>
+        <div className="mx-auto flex max-w-7xl flex-col items-center gap-6 px-6 py-14 text-center">
+          <p className="text-[11px] uppercase tracking-luxury text-gold">
+            Extrait de Parfum · Made for Men
+          </p>
+          <h1 className="text-balance text-[34px] font-semibold uppercase leading-[1.05] tracking-[0.02em] text-ivory md:text-[56px]">
+            Duft, der deine <span className="text-gold-gradient">Geschichte</span> erzählt.
+          </h1>
+          <p className="max-w-xl text-base leading-relaxed text-ivory-muted">
+            LAMISENT ESSENCE übersetzt die Sprache großer Parfumeurshäuser in
+            ein Extrait, das bleibt. Hergestellt in kleinen Chargen, mit
+            kompromissloser Konzentration.
+          </p>
+          <p className="font-display text-sm uppercase tracking-luxury text-gold">
+            Impress. Inspire. Remain.
+          </p>
+          <div className="mt-4 flex flex-wrap items-center justify-center gap-4">
+            <a
+              href="/produkte"
+              className="group inline-flex items-center gap-3 rounded-sm bg-gold px-7 py-3.5 text-[11px] uppercase tracking-luxury text-ink transition-all hover:bg-gold-soft"
+              style={{ boxShadow: "var(--shadow-gold)" }}
+            >
+              Jetzt entdecken
+              <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+            </a>
+            <a
+              href="/sets"
+              className="inline-flex items-center gap-3 border border-border px-7 py-3.5 text-[11px] uppercase tracking-luxury text-ivory transition-colors hover:border-gold hover:text-gold"
+            >
+              Discovery Set
+            </a>
           </div>
+        </div>
+      </section>
 
-          <div className="relative">
-            <div
-              aria-hidden
-              className="absolute inset-0 -z-10 mx-auto h-[420px] w-[420px] rounded-full opacity-40 blur-3xl"
-              style={{ background: "var(--gradient-gold)" }}
-            />
-            <img
-              src={bottle50.url}
-              alt="LAMISENT ESSENCE 50 ML Flakon"
-              className="mx-auto h-[520px] w-auto object-contain drop-shadow-2xl"
-            />
+      {/* CINEMATIC VIDEO */}
+      <section className="relative isolate overflow-hidden bg-charcoal">
+        <div className="relative mx-auto max-w-[1600px]">
+          <video
+            src={heroVideo.url}
+            autoPlay
+            muted
+            loop
+            playsInline
+            poster={bannerDark.url}
+            className="block h-auto w-full object-cover"
+          />
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(180deg, transparent 60%, color-mix(in oklab, var(--ink) 35%, transparent) 100%)",
+            }}
+          />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 px-6 pb-8 text-center md:pb-14">
+            <p className="font-display text-2xl uppercase tracking-luxury text-white md:text-4xl">
+              A Scent of Confidence.
+            </p>
+            <p className="mt-2 text-[11px] uppercase tracking-luxury text-white/80">
+              A Signature of You.
+            </p>
           </div>
         </div>
       </section>
@@ -335,7 +353,7 @@ function Home() {
                     alt={p.name}
                     className="h-full w-full object-contain p-6 transition-transform duration-500 group-hover:scale-105"
                   />
-                  <span className="absolute left-3 top-3 bg-gold px-2 py-1 text-[9px] uppercase tracking-luxury text-matte-black">
+                  <span className="absolute left-3 top-3 bg-gold px-2 py-1 text-[9px] uppercase tracking-luxury text-ink">
                     -15%
                   </span>
                 </div>
@@ -358,7 +376,7 @@ function Home() {
                   <p className="mt-1 text-[10px] text-ivory-muted">
                     inkl. 19% MwSt · ab 30 ML · Grundpreis {EUR((p.price / 30) * 100)} / 100 ml
                   </p>
-                  <button className="mt-5 inline-flex items-center gap-2 border border-gold px-5 py-2.5 text-[10px] uppercase tracking-luxury text-gold transition-colors hover:bg-gold hover:text-matte-black">
+                  <button className="mt-5 inline-flex items-center gap-2 border border-gold px-5 py-2.5 text-[10px] uppercase tracking-luxury text-gold transition-colors hover:bg-gold hover:text-ink">
                     In den Warenkorb
                   </button>
                 </div>
@@ -392,7 +410,7 @@ function Home() {
             </div>
             <a
               href="/sets"
-              className="mt-8 inline-flex items-center gap-3 bg-gold px-7 py-3.5 text-[11px] uppercase tracking-luxury text-matte-black transition-all hover:bg-gold-soft"
+              className="mt-8 inline-flex items-center gap-3 bg-gold px-7 py-3.5 text-[11px] uppercase tracking-luxury text-ink transition-all hover:bg-gold-soft"
               style={{ boxShadow: "var(--shadow-gold)" }}
             >
               Set ansehen
@@ -489,7 +507,7 @@ function Home() {
               />
               <button
                 type="submit"
-                className="bg-gold px-6 text-[11px] uppercase tracking-luxury text-matte-black transition-colors hover:bg-gold-soft"
+                className="bg-gold px-6 text-[11px] uppercase tracking-luxury text-ink transition-colors hover:bg-gold-soft"
               >
                 Abonnieren
               </button>

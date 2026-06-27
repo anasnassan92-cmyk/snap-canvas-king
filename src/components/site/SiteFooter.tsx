@@ -79,24 +79,68 @@ export function SiteFooter() {
         ))}
       </div>
 
-      <div className="border-t border-border">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-6 py-6 text-[11px] uppercase tracking-luxury text-ivory-muted md:flex-row">
-          <p>© {new Date().getFullYear()} LAMISENT ESSENCE. Alle Rechte vorbehalten.</p>
-          <div className="flex items-center gap-3 text-ivory/70">
-            <span>Visa</span>
-            <span>·</span>
-            <span>Mastercard</span>
-            <span>·</span>
-            <span>PayPal</span>
-            <span>·</span>
-            <span>Klarna</span>
-            <span>·</span>
-            <span>SEPA</span>
-            <span>·</span>
-            <span>Apple Pay</span>
+      <div className="border-t border-border bg-charcoal/40">
+        <div className="mx-auto max-w-7xl px-6 py-10">
+          <div className="grid gap-8 md:grid-cols-2">
+            <div>
+              <h4 className="font-sans text-[11px] uppercase tracking-luxury text-gold">
+                Zahlungsmethoden
+              </h4>
+              <p className="mt-3 text-xs leading-relaxed text-ivory-muted">
+                Sichere Bezahlung über Stripe & Klarna. Kauf auf Rechnung, Ratenzahlung
+                und Sofortüberweisung verfügbar.
+              </p>
+              <div className="mt-5 flex flex-wrap items-center gap-2">
+                {[
+                  "Visa",
+                  "Mastercard",
+                  "American Express",
+                  "PayPal",
+                  "Klarna · Rechnung",
+                  "Klarna · Raten",
+                  "Klarna · Sofort",
+                  "SEPA-Lastschrift",
+                  "Apple Pay",
+                  "Google Pay",
+                  "Stripe",
+                ].map((m) => (
+                  <span
+                    key={m}
+                    className="rounded-sm border border-border bg-background px-3 py-1.5 text-[10px] uppercase tracking-luxury text-ivory/85"
+                  >
+                    {m}
+                  </span>
+                ))}
+              </div>
+            </div>
+            <div>
+              <h4 className="font-sans text-[11px] uppercase tracking-luxury text-gold">
+                Versand
+              </h4>
+              <p className="mt-3 text-xs leading-relaxed text-ivory-muted">
+                Versand aus Deutschland mit DHL & DPD in 1–3 Werktagen. Kostenloser
+                Versand ab 49,99 €. Klimaneutraler Versand inklusive.
+              </p>
+              <div className="mt-5 flex flex-wrap items-center gap-2">
+                {["DHL", "DPD", "Klimaneutral"].map((m) => (
+                  <span
+                    key={m}
+                    className="rounded-sm border border-border bg-background px-3 py-1.5 text-[10px] uppercase tracking-luxury text-ivory/85"
+                  >
+                    {m}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="border-t border-border">
+          <div className="mx-auto flex max-w-7xl items-center justify-center px-6 py-5 text-[11px] uppercase tracking-luxury text-ivory-muted">
+            <p>© {new Date().getFullYear()} LAMISENT ESSENCE. Alle Rechte vorbehalten.</p>
           </div>
         </div>
       </div>
+
     </footer>
   );
 }

@@ -9,6 +9,17 @@ import blueTalisman from "@/assets/lam/products/Ex_Nihilo_Blue_Talisman.png.asse
 import reflection from "@/assets/lam/products/Amouage_Reflection_Men.png.asset.json";
 import sideEffect from "@/assets/lam/products/Initio_Side_Effect.png.asset.json";
 
+import imaginationCover from "@/assets/lam/covers/Louis_Vuitton_Imagination_cover.png.asset.json";
+import rouge540Cover from "@/assets/lam/covers/Baccarat_Rouge_540_cover.png.asset.json";
+import naxosCover from "@/assets/lam/covers/Xerjoff_Naxos_cover.png.asset.json";
+import althairCover from "@/assets/lam/covers/Parfums_de_Marly_Althair_cover.png.asset.json";
+import blondeAmberCover from "@/assets/lam/covers/Clive_Christian_Blonde_Amber_cover.png.asset.json";
+import kirkeCover from "@/assets/lam/covers/Tiziana_Terenzi_Kirke_cover.png.asset.json";
+import angelShareCover from "@/assets/lam/covers/Killian_Angel_Share_cover.png.asset.json";
+import blueTalismanCover from "@/assets/lam/covers/Ex_Nihilo_Blue_Talisman_cover.png.asset.json";
+import reflectionCover from "@/assets/lam/covers/Amouage_Reflection_Men_cover.png.asset.json";
+import sideEffectCover from "@/assets/lam/covers/Initio_Side_Effect_cover.png.asset.json";
+
 export type Size = { ml: number; price: number };
 
 export type Product = {
@@ -17,17 +28,16 @@ export type Product = {
   inspired: string;
   family: string;
   image: string;
+  coverImage?: string;
   sizes: Size[];
 };
 
-// Fixed prices across all products
 const FIXED_SIZES: Size[] = [
   { ml: 8, price: 15.99 },
   { ml: 30, price: 29.9 },
   { ml: 50, price: 44.9 },
   { ml: 100, price: 69.9 },
 ];
-
 
 export const PRODUCTS: Product[] = [
   {
@@ -36,6 +46,7 @@ export const PRODUCTS: Product[] = [
     inspired: "Inspiriert von Louis Vuitton Imagination",
     family: "Holzig · Würzig",
     image: imagination.url,
+    coverImage: imaginationCover.url,
     sizes: FIXED_SIZES,
   },
   {
@@ -44,6 +55,7 @@ export const PRODUCTS: Product[] = [
     inspired: "Inspiriert von Baccarat Rouge 540",
     family: "Amber · Floral",
     image: rouge540.url,
+    coverImage: rouge540Cover.url,
     sizes: FIXED_SIZES,
   },
   {
@@ -52,6 +64,7 @@ export const PRODUCTS: Product[] = [
     inspired: "Inspiriert von Xerjoff Naxos",
     family: "Tabak · Honig",
     image: naxos.url,
+    coverImage: naxosCover.url,
     sizes: FIXED_SIZES,
   },
   {
@@ -60,6 +73,7 @@ export const PRODUCTS: Product[] = [
     inspired: "Inspiriert von Parfums de Marly Althaïr",
     family: "Vanille · Mandel",
     image: althair.url,
+    coverImage: althairCover.url,
     sizes: FIXED_SIZES,
   },
   {
@@ -68,6 +82,7 @@ export const PRODUCTS: Product[] = [
     inspired: "Inspiriert von Clive Christian Blonde Amber",
     family: "Amber · Leder",
     image: blondeAmber.url,
+    coverImage: blondeAmberCover.url,
     sizes: FIXED_SIZES,
   },
   {
@@ -76,6 +91,7 @@ export const PRODUCTS: Product[] = [
     inspired: "Inspiriert von Tiziana Terenzi Kirke",
     family: "Frucht · Patchouli",
     image: kirke.url,
+    coverImage: kirkeCover.url,
     sizes: FIXED_SIZES,
   },
   {
@@ -84,6 +100,7 @@ export const PRODUCTS: Product[] = [
     inspired: "Inspiriert von Kilian Angels' Share",
     family: "Cognac · Tonka",
     image: angelShare.url,
+    coverImage: angelShareCover.url,
     sizes: FIXED_SIZES,
   },
   {
@@ -92,6 +109,7 @@ export const PRODUCTS: Product[] = [
     inspired: "Inspiriert von Ex Nihilo Blue Talisman",
     family: "Aquatisch · Iris",
     image: blueTalisman.url,
+    coverImage: blueTalismanCover.url,
     sizes: FIXED_SIZES,
   },
   {
@@ -100,6 +118,7 @@ export const PRODUCTS: Product[] = [
     inspired: "Inspiriert von Amouage Reflection Man",
     family: "Floral · Holzig",
     image: reflection.url,
+    coverImage: reflectionCover.url,
     sizes: FIXED_SIZES,
   },
   {
@@ -108,6 +127,7 @@ export const PRODUCTS: Product[] = [
     inspired: "Inspiriert von Initio Side Effect",
     family: "Tabak · Vanille",
     image: sideEffect.url,
+    coverImage: sideEffectCover.url,
     sizes: FIXED_SIZES,
   },
 ];

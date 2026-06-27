@@ -67,10 +67,9 @@ type HeroSlide =
   | { kind: "image"; src: string; alt: string };
 
 const HERO_SLIDES: HeroSlide[] = [
-  { kind: "video", src: heroVideo.url, poster: bannerDark.url },
-  { kind: "video", src: heroVideo2.url, poster: bannerModel.url },
   { kind: "image", src: bannerModel.url, alt: "LAMISENT ESSENCE — A Scent of Confidence" },
   { kind: "image", src: bannerLight.url, alt: "LAMISENT ESSENCE — Extrait de Parfum" },
+  { kind: "image", src: bannerDark.url, alt: "LAMISENT ESSENCE — Extrait de Parfum" },
 ];
 
 function HeroSlider() {

@@ -199,7 +199,7 @@ function Home() {
             <div className="mt-10 flex flex-wrap items-center gap-4">
               <a
                 href="/produkte"
-                className="group inline-flex items-center gap-3 rounded-sm bg-gold px-7 py-3.5 text-[11px] uppercase tracking-luxury text-matte-black transition-all hover:bg-gold-soft"
+                className="group inline-flex items-center gap-3 rounded-sm bg-gold px-7 py-3.5 text-[11px] uppercase tracking-luxury text-ink transition-all hover:bg-gold-soft"
                 style={{ boxShadow: "var(--shadow-gold)" }}
               >
                 Jetzt entdecken
@@ -335,7 +335,7 @@ function Home() {
                     alt={p.name}
                     className="h-full w-full object-contain p-6 transition-transform duration-500 group-hover:scale-105"
                   />
-                  <span className="absolute left-3 top-3 bg-gold px-2 py-1 text-[9px] uppercase tracking-luxury text-matte-black">
+                  <span className="absolute left-3 top-3 bg-gold px-2 py-1 text-[9px] uppercase tracking-luxury text-ink">
                     -15%
                   </span>
                 </div>
@@ -358,7 +358,7 @@ function Home() {
                   <p className="mt-1 text-[10px] text-ivory-muted">
                     inkl. 19% MwSt · ab 30 ML · Grundpreis {EUR((p.price / 30) * 100)} / 100 ml
                   </p>
-                  <button className="mt-5 inline-flex items-center gap-2 border border-gold px-5 py-2.5 text-[10px] uppercase tracking-luxury text-gold transition-colors hover:bg-gold hover:text-matte-black">
+                  <button className="mt-5 inline-flex items-center gap-2 border border-gold px-5 py-2.5 text-[10px] uppercase tracking-luxury text-gold transition-colors hover:bg-gold hover:text-ink">
                     In den Warenkorb
                   </button>
                 </div>
@@ -392,7 +392,7 @@ function Home() {
             </div>
             <a
               href="/sets"
-              className="mt-8 inline-flex items-center gap-3 bg-gold px-7 py-3.5 text-[11px] uppercase tracking-luxury text-matte-black transition-all hover:bg-gold-soft"
+              className="mt-8 inline-flex items-center gap-3 bg-gold px-7 py-3.5 text-[11px] uppercase tracking-luxury text-ink transition-all hover:bg-gold-soft"
               style={{ boxShadow: "var(--shadow-gold)" }}
             >
               Set ansehen
@@ -489,7 +489,7 @@ function Home() {
               />
               <button
                 type="submit"
-                className="bg-gold px-6 text-[11px] uppercase tracking-luxury text-matte-black transition-colors hover:bg-gold-soft"
+                className="bg-gold px-6 text-[11px] uppercase tracking-luxury text-ink transition-colors hover:bg-gold-soft"
               >
                 Abonnieren
               </button>

@@ -14,6 +14,7 @@ import bannerLight from "@/assets/lam/banner-light.png.asset.json";
 import bannerDark from "@/assets/lam/banner-dark.png.asset.json";
 import bannerModel from "@/assets/lam/banner-model.png.asset.json";
 import heroVideo from "@/assets/lam/hero-video.mp4.asset.json";
+import heroVideo2 from "@/assets/lam/hero-video-2.mp4.asset.json";
 import adBanner from "@/assets/lam/add-in-website-banner.png.asset.json";
 
 import { PRODUCTS, EUR, type Product } from "@/data/products";
@@ -67,6 +68,7 @@ type HeroSlide =
 
 const HERO_SLIDES: HeroSlide[] = [
   { kind: "video", src: heroVideo.url, poster: bannerDark.url },
+  { kind: "video", src: heroVideo2.url, poster: bannerModel.url },
   { kind: "image", src: bannerModel.url, alt: "LAMISENT ESSENCE — A Scent of Confidence" },
   { kind: "image", src: bannerLight.url, alt: "LAMISENT ESSENCE — Extrait de Parfum" },
 ];

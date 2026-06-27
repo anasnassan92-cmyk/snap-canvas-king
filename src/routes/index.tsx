@@ -155,7 +155,30 @@ function Home() {
         </div>
       </section>
 
+      {/* CINEMATIC VERTICAL VIDEOS */}
+      <section className="bg-background py-24">
+        <div className="mx-auto max-w-7xl px-6">
+          <div className="text-center">
+            <p className="text-[11px] uppercase tracking-luxury text-gold">Cinematic</p>
+            <h2 className="mt-3 text-3xl uppercase text-ivory md:text-4xl">
+              LAMISENT in <span className="text-gold-gradient">Bewegung</span>
+            </h2>
+            <p className="mx-auto mt-5 max-w-xl text-sm leading-relaxed text-ivory-muted">
+              Eingefangene Momente — die Essenz unserer Düfte in zwei kurzen Filmen.
+            </p>
+          </div>
+          <div className="mx-auto mt-14 grid max-w-4xl gap-6 sm:grid-cols-2">
+            {[heroVideo.url, heroVideo2.url].map((src) => (
+              <div key={src} className="relative overflow-hidden rounded-sm border border-border bg-charcoal" style={{ aspectRatio: "9 / 16" }}>
+                <video src={src} autoPlay muted loop playsInline className="h-full w-full object-cover" />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <ProductSection eyebrow="Bestseller" title="Kundenfavoriten" products={BESTSELLERS} />
+
 
       {/* ABOUT — now with a 3-product gallery instead of an empty deck */}
       <section className="bg-background py-24">

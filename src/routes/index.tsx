@@ -109,6 +109,22 @@ function HeroSlider() {
   );
 }
 
+function VideoLoop({ sources }: { sources: string[] }) {
+  const [i, setI] = useState(0);
+  return (
+    <video
+      key={sources[i]}
+      src={sources[i]}
+      autoPlay
+      muted
+      playsInline
+      onEnded={() => setI((p) => (p + 1) % sources.length)}
+      className="h-full w-full object-cover"
+    />
+  );
+}
+
+
 function Home() {
   return (
     <div className="min-h-screen bg-background text-foreground">

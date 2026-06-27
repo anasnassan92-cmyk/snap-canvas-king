@@ -14,6 +14,7 @@ import deckCover from "@/assets/lam/deck-cover.png.asset.json";
 import bannerLight from "@/assets/lam/banner-light.png.asset.json";
 import bannerDark from "@/assets/lam/banner-dark.png.asset.json";
 import heroVideo from "@/assets/lam/hero-video.mp4.asset.json";
+import adBanner from "@/assets/lam/add-in-website-banner.png.asset.json";
 
 import { PRODUCTS, EUR, type Product } from "@/data/products";
 
@@ -103,7 +104,18 @@ function Home() {
         </div>
       </section>
 
-      {/* USP */}
+      {/* PROMO AD BANNER */}
+      <section className="relative isolate overflow-hidden bg-background">
+        <a href="/produkte" className="block">
+          <img
+            src={adBanner.url}
+            alt="Premium Fragrance — 30% Off Aktion bei LAMISENT ESSENCE"
+            className="block h-auto w-full object-cover"
+            fetchPriority="high"
+          />
+        </a>
+      </section>
+
       <section className="border-y border-border bg-charcoal/60">
         <div className="mx-auto grid max-w-7xl gap-10 px-6 py-14 sm:grid-cols-2 md:grid-cols-4">
           {USPS.map(({ icon: Icon, title, desc }) => (

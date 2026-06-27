@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ArrowRight, Sparkles, Clock, Leaf, Truck, Quote } from "lucide-react";
 
 import { AnnouncementBar } from "@/components/site/AnnouncementBar";
@@ -9,10 +9,10 @@ import { SiteFooter } from "@/components/site/SiteFooter";
 import boxSingle from "@/assets/lam/box-single.png.asset.json";
 import boxDiscovery from "@/assets/lam/box-discovery-set.png.asset.json";
 import bottle8 from "@/assets/lam/bottle-8ml-transparent.png.asset.json";
-import deckColour from "@/assets/lam/deck-colour.png.asset.json";
 import deckCover from "@/assets/lam/deck-cover.png.asset.json";
 import bannerLight from "@/assets/lam/banner-light.png.asset.json";
 import bannerDark from "@/assets/lam/banner-dark.png.asset.json";
+import bannerModel from "@/assets/lam/banner-model.png.asset.json";
 import heroVideo from "@/assets/lam/hero-video.mp4.asset.json";
 import adBanner from "@/assets/lam/add-in-website-banner.png.asset.json";
 
@@ -44,8 +44,9 @@ export const Route = createFileRoute("/")({
 });
 
 const BESTSELLERS = PRODUCTS.slice(0, 3);
-const NEW_ARRIVALS = PRODUCTS.slice(3, 6);
-const SALE_SLUGS = ["angels-share", "blue-talisman"];
+const NEW_ARRIVALS = PRODUCTS.slice(3, 7); // 4 products → 2×2 on laptop
+const SALE_SLUGS = ["angels-share", "blue-talisman", "naxos"];
+const ABOUT_PRODUCTS = [PRODUCTS[0], PRODUCTS[1], PRODUCTS[4]];
 
 const USPS = [
   { icon: Sparkles, title: "Premium-Zutaten", desc: "Hochkonzentrierte Essenzen, bezogen aus etablierten Häusern." },
@@ -60,17 +61,62 @@ const REVIEWS = [
   { quote: "Das Discovery Set war der perfekte Einstieg. Verpackung wertig, Düfte präzise. LAMISENT ist jetzt fester Teil meiner Routine.", name: "Sebastian H.", place: "Berlin" },
 ];
 
+type HeroSlide =
+  | { kind: "video"; src: string; poster: string }
+  | { kind: "image"; src: string; alt: string };
+
+const HERO_SLIDES: HeroSlide[] = [
+  { kind: "video", src: heroVideo.url, poster: bannerDark.url },
+  { kind: "image", src: bannerModel.url, alt: "LAMISENT ESSENCE — A Scent of Confidence" },
+  { kind: "image", src: bannerLight.url, alt: "LAMISENT ESSENCE — Extrait de Parfum" },
+];
+
+function HeroSlider() {
+  const [idx, setIdx] = useState(0);
+  useEffect(() => {
+    const t = setInterval(() => setIdx((i) => (i + 1) % HERO_SLIDES.length), 4000);
+    return () => clearInterval(t);
+  }, []);
+  return (
+    <div className="relative w-full overflow-hidden bg-charcoal" style={{ aspectRatio: "1920 / 820" }}>
+      {HERO_SLIDES.map((s, i) => (
+        <div
+          key={i}
+          className="absolute inset-0 transition-opacity duration-1000"
+          style={{ opacity: i === idx ? 1 : 0 }}
+          aria-hidden={i !== idx}
+        >
+          {s.kind === "video" ? (
+            <video src={s.src} autoPlay muted loop playsInline poster={s.poster} className="h-full w-full object-cover" />
+          ) : (
+            <img src={s.src} alt={s.alt} className="h-full w-full object-cover" fetchPriority={i === 0 ? "high" : "low"} />
+          )}
+        </div>
+      ))}
+      {/* dots */}
+      <div className="absolute inset-x-0 bottom-4 z-10 flex justify-center gap-2">
+        {HERO_SLIDES.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setIdx(i)}
+            aria-label={`Slide ${i + 1}`}
+            className={`h-1.5 rounded-full transition-all ${i === idx ? "w-8 bg-gold" : "w-1.5 bg-white/50 hover:bg-white/80"}`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function Home() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <AnnouncementBar />
       <SiteHeader />
 
-      {/* HERO — landscape banner */}
+      {/* HERO SLIDER — video + 2 banners, rotates every 4s */}
       <section className="relative isolate overflow-hidden bg-background pt-[92px]">
-        <div className="relative">
-          <img src={bannerLight.url} alt="LAMISENT ESSENCE — Extrait de Parfum" className="block h-auto w-full object-cover" fetchPriority="high" />
-        </div>
+        <HeroSlider />
         <div className="mx-auto flex max-w-7xl flex-col items-center gap-6 px-6 py-14 text-center">
           <p className="text-[11px] uppercase tracking-luxury text-gold">Extrait de Parfum · Made for Men</p>
           <h1 className="text-balance text-[34px] font-semibold uppercase leading-[1.05] tracking-[0.02em] text-ivory md:text-[56px]">
@@ -92,30 +138,6 @@ function Home() {
         </div>
       </section>
 
-      {/* CINEMATIC VIDEO */}
-      <section className="relative isolate overflow-hidden bg-charcoal">
-        <div className="relative mx-auto max-w-[1600px]">
-          <video src={heroVideo.url} autoPlay muted loop playsInline poster={bannerDark.url} className="block h-auto w-full object-cover" />
-          <div aria-hidden className="pointer-events-none absolute inset-0" style={{ background: "linear-gradient(180deg, transparent 60%, color-mix(in oklab, var(--ink) 35%, transparent) 100%)" }} />
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 px-6 pb-8 text-center md:pb-14">
-            <p className="font-display text-2xl uppercase tracking-luxury text-white md:text-4xl">A Scent of Confidence.</p>
-            <p className="mt-2 text-[11px] uppercase tracking-luxury text-white/80">A Signature of You.</p>
-          </div>
-        </div>
-      </section>
-
-      {/* PROMO AD BANNER */}
-      <section className="relative isolate overflow-hidden bg-background">
-        <a href="/produkte" className="block">
-          <img
-            src={adBanner.url}
-            alt="Premium Fragrance — 30% Off Aktion bei LAMISENT ESSENCE"
-            className="block h-auto w-full object-cover"
-            fetchPriority="high"
-          />
-        </a>
-      </section>
-
       <section className="border-y border-border bg-charcoal/60">
         <div className="mx-auto grid max-w-7xl gap-10 px-6 py-14 sm:grid-cols-2 md:grid-cols-4">
           {USPS.map(({ icon: Icon, title, desc }) => (
@@ -134,11 +156,28 @@ function Home() {
 
       <ProductSection eyebrow="Bestseller" title="Kundenfavoriten" products={BESTSELLERS} />
 
-      {/* ABOUT */}
+      {/* ABOUT — now with a 3-product gallery instead of an empty deck */}
       <section className="bg-background py-24">
         <div className="mx-auto grid max-w-7xl items-center gap-14 px-6 md:grid-cols-2">
-          <div className="aspect-[4/5] overflow-hidden rounded-sm border border-border bg-charcoal">
-            <img src={deckColour.url} alt="LAMISENT Farbwelt" className="h-full w-full object-cover opacity-90" />
+          <div className="grid grid-cols-3 gap-3">
+            {ABOUT_PRODUCTS.map((p, i) => (
+              <a
+                key={p.slug}
+                href={`/produkte/${p.slug}`}
+                className={`group relative block aspect-[3/4] overflow-hidden rounded-sm border border-border bg-charcoal ${
+                  i === 0 ? "col-span-2 row-span-2 aspect-[4/5]" : ""
+                }`}
+              >
+                <img
+                  src={p.coverImage ?? p.image}
+                  alt={p.name}
+                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-3">
+                  <p className="font-display text-xs uppercase tracking-luxury text-white">{p.name}</p>
+                </div>
+              </a>
+            ))}
           </div>
           <div>
             <p className="text-[11px] uppercase tracking-luxury text-gold">Über LAMISENT</p>
@@ -163,7 +202,7 @@ function Home() {
         </div>
       </section>
 
-      {/* SALE */}
+      {/* SALE — now features the ad banner image as the hero of this section */}
       <section className="bg-charcoal/40 py-24">
         <div className="mx-auto max-w-7xl px-6">
           <div className="flex items-end justify-between">
@@ -175,15 +214,21 @@ function Home() {
               Alle Angebote →
             </a>
           </div>
-          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
-            {PRODUCTS.filter((p) => SALE_SLUGS.includes(p.slug)).map((p) => (
-              <ProductCard key={p.slug} product={p} discount={0.15} />
-            ))}
+          <div className="mt-12 grid items-stretch gap-6 lg:grid-cols-[1fr_1.4fr]">
+            <a href="/produkte" className="group relative block overflow-hidden rounded-sm border border-border">
+              <img src={adBanner.url} alt="Premium Fragrance — 30% Off Aktion" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]" />
+            </a>
+            <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+              {PRODUCTS.filter((p) => SALE_SLUGS.includes(p.slug)).map((p) => (
+                <ProductCard key={p.slug} product={p} discount={0.15} />
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      <ProductSection eyebrow="Neuheiten" title="Neu in der Kollektion" products={NEW_ARRIVALS} />
+      {/* NEW ARRIVALS — 2 per row on laptop (2×2 grid) */}
+      <ProductSection eyebrow="Neuheiten" title="Neu in der Kollektion" products={NEW_ARRIVALS} columns="two" />
 
       {/* ALL 10 */}
       <ProductSection eyebrow="Kollektion" title="Alle 10 Signature-Düfte" products={PRODUCTS} />
@@ -274,7 +319,21 @@ function Stat({ n, label }: { n: string; label: string }) {
   );
 }
 
-function ProductSection({ eyebrow, title, products }: { eyebrow: string; title: string; products: Product[] }) {
+function ProductSection({
+  eyebrow,
+  title,
+  products,
+  columns = "auto",
+}: {
+  eyebrow: string;
+  title: string;
+  products: Product[];
+  columns?: "auto" | "two";
+}) {
+  const gridClass =
+    columns === "two"
+      ? "mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-2"
+      : "mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4";
   return (
     <section className="bg-background py-24">
       <div className="mx-auto max-w-7xl px-6">
@@ -282,7 +341,7 @@ function ProductSection({ eyebrow, title, products }: { eyebrow: string; title: 
           <p className="text-[11px] uppercase tracking-luxury text-gold">{eyebrow}</p>
           <h2 className="mt-3 text-3xl uppercase text-ivory md:text-4xl">{title}</h2>
         </div>
-        <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div className={gridClass}>
           {products.map((p) => (
             <ProductCard key={p.slug} product={p} />
           ))}

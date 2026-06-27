@@ -20,13 +20,14 @@ export type Product = {
   sizes: Size[];
 };
 
-// 4 sizes per product: 8 ML, 30 ML, 50 ML, 100 ML
-const SIZES = (base: number): Size[] => [
-  { ml: 8, price: +(base * 0.35).toFixed(2) },
-  { ml: 30, price: base },
-  { ml: 50, price: +(base * 1.55).toFixed(2) },
-  { ml: 100, price: +(base * 2.7).toFixed(2) },
+// Fixed prices across all products
+const FIXED_SIZES: Size[] = [
+  { ml: 8, price: 15.99 },
+  { ml: 30, price: 29.9 },
+  { ml: 50, price: 44.9 },
+  { ml: 100, price: 69.9 },
 ];
+
 
 export const PRODUCTS: Product[] = [
   {
@@ -35,7 +36,7 @@ export const PRODUCTS: Product[] = [
     inspired: "Inspiriert von Louis Vuitton Imagination",
     family: "Holzig · Würzig",
     image: imagination.url,
-    sizes: SIZES(29.9),
+    sizes: FIXED_SIZES,
   },
   {
     slug: "rouge-540",
@@ -43,7 +44,7 @@ export const PRODUCTS: Product[] = [
     inspired: "Inspiriert von Baccarat Rouge 540",
     family: "Amber · Floral",
     image: rouge540.url,
-    sizes: SIZES(29.9),
+    sizes: FIXED_SIZES,
   },
   {
     slug: "naxos",
@@ -51,7 +52,7 @@ export const PRODUCTS: Product[] = [
     inspired: "Inspiriert von Xerjoff Naxos",
     family: "Tabak · Honig",
     image: naxos.url,
-    sizes: SIZES(29.9),
+    sizes: FIXED_SIZES,
   },
   {
     slug: "althair",
@@ -59,7 +60,7 @@ export const PRODUCTS: Product[] = [
     inspired: "Inspiriert von Parfums de Marly Althaïr",
     family: "Vanille · Mandel",
     image: althair.url,
-    sizes: SIZES(29.9),
+    sizes: FIXED_SIZES,
   },
   {
     slug: "blonde-amber",
@@ -67,7 +68,7 @@ export const PRODUCTS: Product[] = [
     inspired: "Inspiriert von Clive Christian Blonde Amber",
     family: "Amber · Leder",
     image: blondeAmber.url,
-    sizes: SIZES(34.9),
+    sizes: FIXED_SIZES,
   },
   {
     slug: "kirke",
@@ -75,7 +76,7 @@ export const PRODUCTS: Product[] = [
     inspired: "Inspiriert von Tiziana Terenzi Kirke",
     family: "Frucht · Patchouli",
     image: kirke.url,
-    sizes: SIZES(29.9),
+    sizes: FIXED_SIZES,
   },
   {
     slug: "angels-share",
@@ -83,7 +84,7 @@ export const PRODUCTS: Product[] = [
     inspired: "Inspiriert von Kilian Angels' Share",
     family: "Cognac · Tonka",
     image: angelShare.url,
-    sizes: SIZES(29.9),
+    sizes: FIXED_SIZES,
   },
   {
     slug: "blue-talisman",
@@ -91,7 +92,7 @@ export const PRODUCTS: Product[] = [
     inspired: "Inspiriert von Ex Nihilo Blue Talisman",
     family: "Aquatisch · Iris",
     image: blueTalisman.url,
-    sizes: SIZES(29.9),
+    sizes: FIXED_SIZES,
   },
   {
     slug: "reflection",
@@ -99,7 +100,7 @@ export const PRODUCTS: Product[] = [
     inspired: "Inspiriert von Amouage Reflection Man",
     family: "Floral · Holzig",
     image: reflection.url,
-    sizes: SIZES(32.9),
+    sizes: FIXED_SIZES,
   },
   {
     slug: "side-effect",
@@ -107,7 +108,7 @@ export const PRODUCTS: Product[] = [
     inspired: "Inspiriert von Initio Side Effect",
     family: "Tabak · Vanille",
     image: sideEffect.url,
-    sizes: SIZES(32.9),
+    sizes: FIXED_SIZES,
   },
 ];
 

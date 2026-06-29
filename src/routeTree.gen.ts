@@ -24,6 +24,7 @@ import { Route as CheckoutRouteImport } from './routes/checkout'
 import { Route as AgbRouteImport } from './routes/agb'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ProdukteSlugRouteImport } from './routes/produkte.$slug'
+import { Route as CheckoutReturnRouteImport } from './routes/checkout.return'
 import { Route as ApiPublicPaymentsWebhookRouteImport } from './routes/api/public/payments/webhook'
 
 const WiderrufRoute = WiderrufRouteImport.update({
@@ -101,6 +102,11 @@ const ProdukteSlugRoute = ProdukteSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => ProdukteRoute,
 } as any)
+const CheckoutReturnRoute = CheckoutReturnRouteImport.update({
+  id: '/return',
+  path: '/return',
+  getParentRoute: () => CheckoutRoute,
+} as any)
 const ApiPublicPaymentsWebhookRoute =
   ApiPublicPaymentsWebhookRouteImport.update({
     id: '/api/public/payments/webhook',
@@ -111,7 +117,7 @@ const ApiPublicPaymentsWebhookRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/agb': typeof AgbRoute
-  '/checkout': typeof CheckoutRoute
+  '/checkout': typeof CheckoutRouteWithChildren
   '/datenschutz': typeof DatenschutzRoute
   '/impressum': typeof ImpressumRoute
   '/kollektionen': typeof KollektionenRoute
@@ -123,13 +129,14 @@ export interface FileRoutesByFullPath {
   '/versand-zahlung': typeof VersandZahlungRoute
   '/warenkorb': typeof WarenkorbRoute
   '/widerruf': typeof WiderrufRoute
+  '/checkout/return': typeof CheckoutReturnRoute
   '/produkte/$slug': typeof ProdukteSlugRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/agb': typeof AgbRoute
-  '/checkout': typeof CheckoutRoute
+  '/checkout': typeof CheckoutRouteWithChildren
   '/datenschutz': typeof DatenschutzRoute
   '/impressum': typeof ImpressumRoute
   '/kollektionen': typeof KollektionenRoute
@@ -141,6 +148,7 @@ export interface FileRoutesByTo {
   '/versand-zahlung': typeof VersandZahlungRoute
   '/warenkorb': typeof WarenkorbRoute
   '/widerruf': typeof WiderrufRoute
+  '/checkout/return': typeof CheckoutReturnRoute
   '/produkte/$slug': typeof ProdukteSlugRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
 }
@@ -148,7 +156,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/agb': typeof AgbRoute
-  '/checkout': typeof CheckoutRoute
+  '/checkout': typeof CheckoutRouteWithChildren
   '/datenschutz': typeof DatenschutzRoute
   '/impressum': typeof ImpressumRoute
   '/kollektionen': typeof KollektionenRoute
@@ -160,6 +168,7 @@ export interface FileRoutesById {
   '/versand-zahlung': typeof VersandZahlungRoute
   '/warenkorb': typeof WarenkorbRoute
   '/widerruf': typeof WiderrufRoute
+  '/checkout/return': typeof CheckoutReturnRoute
   '/produkte/$slug': typeof ProdukteSlugRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
 }
@@ -180,6 +189,7 @@ export interface FileRouteTypes {
     | '/versand-zahlung'
     | '/warenkorb'
     | '/widerruf'
+    | '/checkout/return'
     | '/produkte/$slug'
     | '/api/public/payments/webhook'
   fileRoutesByTo: FileRoutesByTo
@@ -198,6 +208,7 @@ export interface FileRouteTypes {
     | '/versand-zahlung'
     | '/warenkorb'
     | '/widerruf'
+    | '/checkout/return'
     | '/produkte/$slug'
     | '/api/public/payments/webhook'
   id:
@@ -216,6 +227,7 @@ export interface FileRouteTypes {
     | '/versand-zahlung'
     | '/warenkorb'
     | '/widerruf'
+    | '/checkout/return'
     | '/produkte/$slug'
     | '/api/public/payments/webhook'
   fileRoutesById: FileRoutesById
@@ -223,7 +235,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AgbRoute: typeof AgbRoute
-  CheckoutRoute: typeof CheckoutRoute
+  CheckoutRoute: typeof CheckoutRouteWithChildren
   DatenschutzRoute: typeof DatenschutzRoute
   ImpressumRoute: typeof ImpressumRoute
   KollektionenRoute: typeof KollektionenRoute
@@ -345,6 +357,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProdukteSlugRouteImport
       parentRoute: typeof ProdukteRoute
     }
+    '/checkout/return': {
+      id: '/checkout/return'
+      path: '/return'
+      fullPath: '/checkout/return'
+      preLoaderRoute: typeof CheckoutReturnRouteImport
+      parentRoute: typeof CheckoutRoute
+    }
     '/api/public/payments/webhook': {
       id: '/api/public/payments/webhook'
       path: '/api/public/payments/webhook'
@@ -354,6 +373,18 @@ declare module '@tanstack/react-router' {
     }
   }
 }
+
+interface CheckoutRouteChildren {
+  CheckoutReturnRoute: typeof CheckoutReturnRoute
+}
+
+const CheckoutRouteChildren: CheckoutRouteChildren = {
+  CheckoutReturnRoute: CheckoutReturnRoute,
+}
+
+const CheckoutRouteWithChildren = CheckoutRoute._addFileChildren(
+  CheckoutRouteChildren,
+)
 
 interface ProdukteRouteChildren {
   ProdukteSlugRoute: typeof ProdukteSlugRoute
@@ -370,7 +401,7 @@ const ProdukteRouteWithChildren = ProdukteRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AgbRoute: AgbRoute,
-  CheckoutRoute: CheckoutRoute,
+  CheckoutRoute: CheckoutRouteWithChildren,
   DatenschutzRoute: DatenschutzRoute,
   ImpressumRoute: ImpressumRoute,
   KollektionenRoute: KollektionenRoute,

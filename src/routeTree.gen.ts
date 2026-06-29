@@ -21,9 +21,11 @@ import { Route as ImpressumRouteImport } from './routes/impressum'
 import { Route as DatenschutzRouteImport } from './routes/datenschutz'
 import { Route as CheckoutRouteImport } from './routes/checkout'
 import { Route as AgbRouteImport } from './routes/agb'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ProdukteSlugRouteImport } from './routes/produkte.$slug'
 import { Route as CheckoutReturnRouteImport } from './routes/checkout.return'
+import { Route as AuthenticatedKontoRouteImport } from './routes/_authenticated/konto'
 import { Route as ApiPublicPaymentsWebhookRouteImport } from './routes/api/public/payments/webhook'
 
 const WiderrufRoute = WiderrufRouteImport.update({
@@ -86,6 +88,10 @@ const AgbRoute = AgbRouteImport.update({
   path: '/agb',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -100,6 +106,11 @@ const CheckoutReturnRoute = CheckoutReturnRouteImport.update({
   id: '/return',
   path: '/return',
   getParentRoute: () => CheckoutRoute,
+} as any)
+const AuthenticatedKontoRoute = AuthenticatedKontoRouteImport.update({
+  id: '/konto',
+  path: '/konto',
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const ApiPublicPaymentsWebhookRoute =
   ApiPublicPaymentsWebhookRouteImport.update({
@@ -122,6 +133,7 @@ export interface FileRoutesByFullPath {
   '/versand-zahlung': typeof VersandZahlungRoute
   '/warenkorb': typeof WarenkorbRoute
   '/widerruf': typeof WiderrufRoute
+  '/konto': typeof AuthenticatedKontoRoute
   '/checkout/return': typeof CheckoutReturnRoute
   '/produkte/$slug': typeof ProdukteSlugRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
@@ -140,6 +152,7 @@ export interface FileRoutesByTo {
   '/versand-zahlung': typeof VersandZahlungRoute
   '/warenkorb': typeof WarenkorbRoute
   '/widerruf': typeof WiderrufRoute
+  '/konto': typeof AuthenticatedKontoRoute
   '/checkout/return': typeof CheckoutReturnRoute
   '/produkte/$slug': typeof ProdukteSlugRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
@@ -147,6 +160,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/agb': typeof AgbRoute
   '/checkout': typeof CheckoutRouteWithChildren
   '/datenschutz': typeof DatenschutzRoute
@@ -159,6 +173,7 @@ export interface FileRoutesById {
   '/versand-zahlung': typeof VersandZahlungRoute
   '/warenkorb': typeof WarenkorbRoute
   '/widerruf': typeof WiderrufRoute
+  '/_authenticated/konto': typeof AuthenticatedKontoRoute
   '/checkout/return': typeof CheckoutReturnRoute
   '/produkte/$slug': typeof ProdukteSlugRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
@@ -179,6 +194,7 @@ export interface FileRouteTypes {
     | '/versand-zahlung'
     | '/warenkorb'
     | '/widerruf'
+    | '/konto'
     | '/checkout/return'
     | '/produkte/$slug'
     | '/api/public/payments/webhook'
@@ -197,12 +213,14 @@ export interface FileRouteTypes {
     | '/versand-zahlung'
     | '/warenkorb'
     | '/widerruf'
+    | '/konto'
     | '/checkout/return'
     | '/produkte/$slug'
     | '/api/public/payments/webhook'
   id:
     | '__root__'
     | '/'
+    | '/_authenticated'
     | '/agb'
     | '/checkout'
     | '/datenschutz'
@@ -215,6 +233,7 @@ export interface FileRouteTypes {
     | '/versand-zahlung'
     | '/warenkorb'
     | '/widerruf'
+    | '/_authenticated/konto'
     | '/checkout/return'
     | '/produkte/$slug'
     | '/api/public/payments/webhook'
@@ -222,6 +241,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AgbRoute: typeof AgbRoute
   CheckoutRoute: typeof CheckoutRouteWithChildren
   DatenschutzRoute: typeof DatenschutzRoute
@@ -323,6 +343,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AgbRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -344,6 +371,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CheckoutReturnRouteImport
       parentRoute: typeof CheckoutRoute
     }
+    '/_authenticated/konto': {
+      id: '/_authenticated/konto'
+      path: '/konto'
+      fullPath: '/konto'
+      preLoaderRoute: typeof AuthenticatedKontoRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/api/public/payments/webhook': {
       id: '/api/public/payments/webhook'
       path: '/api/public/payments/webhook'
@@ -353,6 +387,17 @@ declare module '@tanstack/react-router' {
     }
   }
 }
+
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedKontoRoute: typeof AuthenticatedKontoRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedKontoRoute: AuthenticatedKontoRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
 
 interface CheckoutRouteChildren {
   CheckoutReturnRoute: typeof CheckoutReturnRoute
@@ -380,6 +425,7 @@ const ProdukteRouteWithChildren = ProdukteRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AgbRoute: AgbRoute,
   CheckoutRoute: CheckoutRouteWithChildren,
   DatenschutzRoute: DatenschutzRoute,

@@ -1,4 +1,5 @@
 import logoGold from "@/assets/lam/logo-gold.png.asset.json";
+import { PaymentMethodLogos, ShippingLogos } from "@/components/site/PaymentIcons";
 import { Instagram } from "lucide-react";
 
 const COLS = [
@@ -90,27 +91,8 @@ export function SiteFooter() {
                 Sichere Bezahlung über Stripe & Klarna. Kauf auf Rechnung, Ratenzahlung
                 und Sofortüberweisung verfügbar.
               </p>
-              <div className="mt-5 flex flex-wrap items-center gap-2">
-                {[
-                  "Visa",
-                  "Mastercard",
-                  "American Express",
-                  "PayPal",
-                  "Klarna · Rechnung",
-                  "Klarna · Raten",
-                  "Klarna · Sofort",
-                  "SEPA-Lastschrift",
-                  "Apple Pay",
-                  "Google Pay",
-                  "Stripe",
-                ].map((m) => (
-                  <span
-                    key={m}
-                    className="rounded-sm border border-border bg-background px-3 py-1.5 text-[10px] uppercase tracking-luxury text-ivory/85"
-                  >
-                    {m}
-                  </span>
-                ))}
+              <div className="mt-5">
+                <PaymentMethodLogos />
               </div>
             </div>
             <div>
@@ -121,15 +103,8 @@ export function SiteFooter() {
                 Versand aus Deutschland mit DHL & DPD in 1–3 Werktagen. Kostenloser
                 Versand ab 49,99 €. Klimaneutraler Versand inklusive.
               </p>
-              <div className="mt-5 flex flex-wrap items-center gap-2">
-                {["DHL", "DPD", "Klimaneutral"].map((m) => (
-                  <span
-                    key={m}
-                    className="rounded-sm border border-border bg-background px-3 py-1.5 text-[10px] uppercase tracking-luxury text-ivory/85"
-                  >
-                    {m}
-                  </span>
-                ))}
+              <div className="mt-5">
+                <ShippingLogos />
               </div>
             </div>
           </div>

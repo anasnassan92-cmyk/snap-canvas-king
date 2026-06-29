@@ -15,6 +15,7 @@ import bannerDark from "@/assets/lam/banner-dark.png.asset.json";
 import bannerModel from "@/assets/lam/banner-model.png.asset.json";
 import heroVideo from "@/assets/lam/hero-video.mp4.asset.json";
 import heroVideo2 from "@/assets/lam/hero-video-2.mp4.asset.json";
+import heroVideo3 from "@/assets/lam/hero-video-3.mp4.asset.json";
 import adBanner from "@/assets/lam/add-in-website-banner.png.asset.json";
 
 import { PRODUCTS, EUR, type Product } from "@/data/products";
@@ -185,7 +186,7 @@ function Home() {
           </div>
           <div className="mx-auto mt-14 max-w-sm">
             <div className="relative overflow-hidden rounded-sm border border-border bg-charcoal" style={{ aspectRatio: "9 / 16" }}>
-              <VideoLoop sources={[heroVideo.url, heroVideo2.url]} />
+              <VideoLoop sources={[heroVideo.url, heroVideo2.url, heroVideo3.url]} />
             </div>
           </div>
         </div>
@@ -198,14 +199,25 @@ function Home() {
       {/* ABOUT — now with a 3-product gallery instead of an empty deck */}
       <section className="bg-background py-24">
         <div className="mx-auto grid max-w-7xl items-center gap-14 px-6 md:grid-cols-2">
-          <div className="grid grid-cols-3 gap-3">
-            {ABOUT_PRODUCTS.map((p, i) => (
+          <div className="grid grid-cols-2 gap-3">
+            <a
+              href={`/produkte/${ABOUT_PRODUCTS[0].slug}`}
+              className="group relative col-span-2 block aspect-[16/10] overflow-hidden rounded-sm border border-border bg-charcoal"
+            >
+              <img
+                src={ABOUT_PRODUCTS[0].coverImage ?? ABOUT_PRODUCTS[0].image}
+                alt={ABOUT_PRODUCTS[0].name}
+                className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-4">
+                <p className="font-display text-sm uppercase tracking-luxury text-white">{ABOUT_PRODUCTS[0].name}</p>
+              </div>
+            </a>
+            {[ABOUT_PRODUCTS[1], ABOUT_PRODUCTS[2]].map((p) => (
               <a
                 key={p.slug}
                 href={`/produkte/${p.slug}`}
-                className={`group relative block aspect-[3/4] overflow-hidden rounded-sm border border-border bg-charcoal ${
-                  i === 0 ? "col-span-2 row-span-2 aspect-[4/5]" : ""
-                }`}
+                className="group relative block aspect-[4/5] overflow-hidden rounded-sm border border-border bg-charcoal"
               >
                 <img
                   src={p.coverImage ?? p.image}

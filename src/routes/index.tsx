@@ -186,7 +186,7 @@ function Home() {
           </div>
           <div className="mx-auto mt-14 max-w-sm">
             <div className="relative overflow-hidden rounded-sm border border-border bg-charcoal" style={{ aspectRatio: "9 / 16" }}>
-              <VideoLoop sources={[heroVideo.url, heroVideo2.url]} />
+              <VideoLoop sources={[heroVideo.url, heroVideo2.url, heroVideo3.url]} />
             </div>
           </div>
         </div>

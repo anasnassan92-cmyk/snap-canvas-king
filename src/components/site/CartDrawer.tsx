@@ -121,7 +121,7 @@ export function CartDrawer() {
               </div>
             </div>
             <Link
-              to="/warenkorb"
+              to="/checkout"
               onClick={close}
               className="mt-5 flex items-center justify-center gap-3 bg-gold px-7 py-3.5 text-[11px] uppercase tracking-luxury text-ink transition-colors hover:bg-gold-soft"
               style={{ boxShadow: "var(--shadow-gold)" }}

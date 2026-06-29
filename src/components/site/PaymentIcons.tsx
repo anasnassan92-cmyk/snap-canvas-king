@@ -1,52 +1,39 @@
-import {
-  SiVisa,
-  SiMastercard,
-  SiAmericanexpress,
-  SiPaypal,
-  SiKlarna,
-  SiStripe,
-  SiApplepay,
-  SiGooglepay,
-  SiDhl,
-} from "react-icons/si";
-import { FaLeaf } from "react-icons/fa";
+import visa from "@/assets/lam/icons/visa.svg";
+import mastercard from "@/assets/lam/icons/mastercard.svg";
+import amex from "@/assets/lam/icons/americanexpress.svg";
+import paypal from "@/assets/lam/icons/paypal.svg";
+import klarna from "@/assets/lam/icons/klarna.svg";
+import applepay from "@/assets/lam/icons/applepay.svg";
+import googlepay from "@/assets/lam/icons/googlepay.svg";
+import stripe from "@/assets/lam/icons/stripe.svg";
+import dhl from "@/assets/lam/icons/dhl.svg";
 
-type Tile = {
-  label: string;
-  icon: React.ReactNode;
-  /** brand color for the icon */
-  color?: string;
-};
+type Tile = { label: string; src: string; tint?: string };
 
-function Badge({ label, icon }: Tile) {
+function Badge({ label, src, tint }: Tile) {
   return (
     <div
       title={label}
       aria-label={label}
       className="flex h-10 w-16 items-center justify-center rounded-md border border-border bg-white shadow-sm"
     >
-      {icon}
+      <img src={src} alt={label} className="h-5 w-auto max-w-[80%] object-contain" style={tint ? { filter: "none", color: tint } : undefined} />
     </div>
   );
 }
 
 const PAYMENTS: Tile[] = [
-  { label: "Visa", icon: <SiVisa size={34} color="#1A1F71" /> },
-  { label: "Mastercard", icon: <SiMastercard size={30} color="#EB001B" /> },
-  { label: "American Express", icon: <SiAmericanexpress size={30} color="#2E77BC" /> },
-  { label: "PayPal", icon: <SiPaypal size={22} color="#003087" /> },
-  { label: "Klarna", icon: <SiKlarna size={28} color="#FFA8CD" /> },
-  { label: "Apple Pay", icon: <SiApplepay size={32} color="#000000" /> },
-  { label: "Google Pay", icon: <SiGooglepay size={32} color="#5F6368" /> },
-  { label: "SEPA", icon: <span className="text-[11px] font-bold tracking-wide text-[#10298E]">SEPA</span> },
-  { label: "Stripe", icon: <SiStripe size={28} color="#635BFF" /> },
+  { label: "Visa", src: visa },
+  { label: "Mastercard", src: mastercard },
+  { label: "American Express", src: amex },
+  { label: "PayPal", src: paypal },
+  { label: "Klarna", src: klarna },
+  { label: "Apple Pay", src: applepay },
+  { label: "Google Pay", src: googlepay },
+  { label: "Stripe", src: stripe },
 ];
 
-const SHIPPING: Tile[] = [
-  { label: "DHL", icon: <SiDhl size={34} color="#D40511" /> },
-  { label: "DPD", icon: <span className="text-[11px] font-extrabold tracking-wider text-[#DC0032]">DPD</span> },
-  { label: "Klimaneutraler Versand", icon: <FaLeaf size={20} color="#2E7D32" /> },
-];
+const SHIPPING: Tile[] = [{ label: "DHL", src: dhl }];
 
 export function PaymentMethodLogos() {
   return (

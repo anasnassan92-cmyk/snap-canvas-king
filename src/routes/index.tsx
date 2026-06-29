@@ -15,6 +15,7 @@ import bannerDark from "@/assets/lam/banner-dark.png.asset.json";
 import bannerModel from "@/assets/lam/banner-model.png.asset.json";
 import heroVideo from "@/assets/lam/hero-video.mp4.asset.json";
 import heroVideo2 from "@/assets/lam/hero-video-2.mp4.asset.json";
+import heroVideo3 from "@/assets/lam/hero-video-3.mp4.asset.json";
 import adBanner from "@/assets/lam/add-in-website-banner.png.asset.json";
 
 import { PRODUCTS, EUR, type Product } from "@/data/products";

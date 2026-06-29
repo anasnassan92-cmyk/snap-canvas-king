@@ -15,7 +15,6 @@ import { Route as VersandZahlungRouteImport } from './routes/versand-zahlung'
 import { Route as UeberUnsRouteImport } from './routes/ueber-uns'
 import { Route as SetsRouteImport } from './routes/sets'
 import { Route as ProdukteRouteImport } from './routes/produkte'
-import { Route as KontoRouteImport } from './routes/konto'
 import { Route as KontaktRouteImport } from './routes/kontakt'
 import { Route as KollektionenRouteImport } from './routes/kollektionen'
 import { Route as ImpressumRouteImport } from './routes/impressum'
@@ -55,11 +54,6 @@ const SetsRoute = SetsRouteImport.update({
 const ProdukteRoute = ProdukteRouteImport.update({
   id: '/produkte',
   path: '/produkte',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const KontoRoute = KontoRouteImport.update({
-  id: '/konto',
-  path: '/konto',
   getParentRoute: () => rootRouteImport,
 } as any)
 const KontaktRoute = KontaktRouteImport.update({
@@ -122,7 +116,6 @@ export interface FileRoutesByFullPath {
   '/impressum': typeof ImpressumRoute
   '/kollektionen': typeof KollektionenRoute
   '/kontakt': typeof KontaktRoute
-  '/konto': typeof KontoRoute
   '/produkte': typeof ProdukteRouteWithChildren
   '/sets': typeof SetsRoute
   '/ueber-uns': typeof UeberUnsRoute
@@ -141,7 +134,6 @@ export interface FileRoutesByTo {
   '/impressum': typeof ImpressumRoute
   '/kollektionen': typeof KollektionenRoute
   '/kontakt': typeof KontaktRoute
-  '/konto': typeof KontoRoute
   '/produkte': typeof ProdukteRouteWithChildren
   '/sets': typeof SetsRoute
   '/ueber-uns': typeof UeberUnsRoute
@@ -161,7 +153,6 @@ export interface FileRoutesById {
   '/impressum': typeof ImpressumRoute
   '/kollektionen': typeof KollektionenRoute
   '/kontakt': typeof KontaktRoute
-  '/konto': typeof KontoRoute
   '/produkte': typeof ProdukteRouteWithChildren
   '/sets': typeof SetsRoute
   '/ueber-uns': typeof UeberUnsRoute
@@ -182,7 +173,6 @@ export interface FileRouteTypes {
     | '/impressum'
     | '/kollektionen'
     | '/kontakt'
-    | '/konto'
     | '/produkte'
     | '/sets'
     | '/ueber-uns'
@@ -201,7 +191,6 @@ export interface FileRouteTypes {
     | '/impressum'
     | '/kollektionen'
     | '/kontakt'
-    | '/konto'
     | '/produkte'
     | '/sets'
     | '/ueber-uns'
@@ -220,7 +209,6 @@ export interface FileRouteTypes {
     | '/impressum'
     | '/kollektionen'
     | '/kontakt'
-    | '/konto'
     | '/produkte'
     | '/sets'
     | '/ueber-uns'
@@ -240,7 +228,6 @@ export interface RootRouteChildren {
   ImpressumRoute: typeof ImpressumRoute
   KollektionenRoute: typeof KollektionenRoute
   KontaktRoute: typeof KontaktRoute
-  KontoRoute: typeof KontoRoute
   ProdukteRoute: typeof ProdukteRouteWithChildren
   SetsRoute: typeof SetsRoute
   UeberUnsRoute: typeof UeberUnsRoute
@@ -292,13 +279,6 @@ declare module '@tanstack/react-router' {
       path: '/produkte'
       fullPath: '/produkte'
       preLoaderRoute: typeof ProdukteRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/konto': {
-      id: '/konto'
-      path: '/konto'
-      fullPath: '/konto'
-      preLoaderRoute: typeof KontoRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/kontakt': {
@@ -406,7 +386,6 @@ const rootRouteChildren: RootRouteChildren = {
   ImpressumRoute: ImpressumRoute,
   KollektionenRoute: KollektionenRoute,
   KontaktRoute: KontaktRoute,
-  KontoRoute: KontoRoute,
   ProdukteRoute: ProdukteRouteWithChildren,
   SetsRoute: SetsRoute,
   UeberUnsRoute: UeberUnsRoute,

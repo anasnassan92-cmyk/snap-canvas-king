@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { Search, User, ShoppingBag } from "lucide-react";
 import logoGold from "@/assets/lam/logo-gold.png.asset.json";
+import { useCart, resolveLines, cartTotals } from "@/lib/cart";
 
 const NAV = [
   { label: "Parfums", href: "/produkte" },
@@ -11,15 +12,15 @@ const NAV = [
 ];
 
 export function SiteHeader() {
+  const lines = useCart((s) => s.lines);
+  const open = useCart((s) => s.open);
+  const { count } = cartTotals(resolveLines(lines));
+
   return (
     <header className="absolute left-0 right-0 top-[34px] z-40">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5">
         <Link to="/" className="flex items-center">
-          <img
-            src={logoGold.url}
-            alt="LAMISENT ESSENCE"
-            className="h-8 w-auto"
-          />
+          <img src={logoGold.url} alt="LAMISENT ESSENCE" className="h-8 w-auto" />
         </Link>
 
         <nav className="hidden items-center gap-9 md:flex">
@@ -41,16 +42,16 @@ export function SiteHeader() {
           <a href="/konto" aria-label="Konto" className="transition-colors hover:text-gold">
             <User className="h-4 w-4" />
           </a>
-          <a
-            href="/warenkorb"
-            aria-label="Warenkorb"
+          <button
+            onClick={open}
+            aria-label="Warenkorb öffnen"
             className="relative transition-colors hover:text-gold"
           >
             <ShoppingBag className="h-4 w-4" />
             <span className="absolute -right-2 -top-2 inline-flex h-4 min-w-4 items-center justify-center rounded-full bg-gold px-1 text-[9px] font-semibold text-ink">
-              0
+              {count}
             </span>
-          </a>
+          </button>
         </div>
       </div>
     </header>

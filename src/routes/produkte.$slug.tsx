@@ -5,11 +5,11 @@ import { ArrowRight, ChevronLeft, Truck, ShieldCheck, RotateCcw, Sparkles } from
 import { AnnouncementBar } from "@/components/site/AnnouncementBar";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
-import { PRODUCTS, EUR } from "@/data/products";
+import { PRODUCTS, EUR, type Product } from "@/data/products";
 import { useCart } from "@/lib/cart";
 
 export const Route = createFileRoute("/produkte/$slug")({
-  loader: ({ params }) => {
+  loader: ({ params }): { product: Product } => {
     const product = PRODUCTS.find((p) => p.slug === params.slug);
     if (!product) throw notFound();
     return { product };

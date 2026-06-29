@@ -20,6 +20,7 @@ import { Route as KollektionenRouteImport } from './routes/kollektionen'
 import { Route as ImpressumRouteImport } from './routes/impressum'
 import { Route as DatenschutzRouteImport } from './routes/datenschutz'
 import { Route as CheckoutRouteImport } from './routes/checkout'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AgbRouteImport } from './routes/agb'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
@@ -83,6 +84,11 @@ const CheckoutRoute = CheckoutRouteImport.update({
   path: '/checkout',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AgbRoute = AgbRouteImport.update({
   id: '/agb',
   path: '/agb',
@@ -122,6 +128,7 @@ const ApiPublicPaymentsWebhookRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/agb': typeof AgbRoute
+  '/auth': typeof AuthRoute
   '/checkout': typeof CheckoutRouteWithChildren
   '/datenschutz': typeof DatenschutzRoute
   '/impressum': typeof ImpressumRoute
@@ -141,6 +148,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/agb': typeof AgbRoute
+  '/auth': typeof AuthRoute
   '/checkout': typeof CheckoutRouteWithChildren
   '/datenschutz': typeof DatenschutzRoute
   '/impressum': typeof ImpressumRoute
@@ -162,6 +170,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/agb': typeof AgbRoute
+  '/auth': typeof AuthRoute
   '/checkout': typeof CheckoutRouteWithChildren
   '/datenschutz': typeof DatenschutzRoute
   '/impressum': typeof ImpressumRoute
@@ -183,6 +192,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/agb'
+    | '/auth'
     | '/checkout'
     | '/datenschutz'
     | '/impressum'
@@ -202,6 +212,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/agb'
+    | '/auth'
     | '/checkout'
     | '/datenschutz'
     | '/impressum'
@@ -222,6 +233,7 @@ export interface FileRouteTypes {
     | '/'
     | '/_authenticated'
     | '/agb'
+    | '/auth'
     | '/checkout'
     | '/datenschutz'
     | '/impressum'
@@ -243,6 +255,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AgbRoute: typeof AgbRoute
+  AuthRoute: typeof AuthRoute
   CheckoutRoute: typeof CheckoutRouteWithChildren
   DatenschutzRoute: typeof DatenschutzRoute
   ImpressumRoute: typeof ImpressumRoute
@@ -336,6 +349,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CheckoutRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/agb': {
       id: '/agb'
       path: '/agb'
@@ -427,6 +447,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AgbRoute: AgbRoute,
+  AuthRoute: AuthRoute,
   CheckoutRoute: CheckoutRouteWithChildren,
   DatenschutzRoute: DatenschutzRoute,
   ImpressumRoute: ImpressumRoute,

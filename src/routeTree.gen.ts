@@ -22,6 +22,7 @@ import { Route as ImpressumRouteImport } from './routes/impressum'
 import { Route as DatenschutzRouteImport } from './routes/datenschutz'
 import { Route as AgbRouteImport } from './routes/agb'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ProdukteSlugRouteImport } from './routes/produkte.$slug'
 
 const WiderrufRoute = WiderrufRouteImport.update({
   id: '/widerruf',
@@ -88,6 +89,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProdukteSlugRoute = ProdukteSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => ProdukteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -97,12 +103,13 @@ export interface FileRoutesByFullPath {
   '/kollektionen': typeof KollektionenRoute
   '/kontakt': typeof KontaktRoute
   '/konto': typeof KontoRoute
-  '/produkte': typeof ProdukteRoute
+  '/produkte': typeof ProdukteRouteWithChildren
   '/sets': typeof SetsRoute
   '/ueber-uns': typeof UeberUnsRoute
   '/versand-zahlung': typeof VersandZahlungRoute
   '/warenkorb': typeof WarenkorbRoute
   '/widerruf': typeof WiderrufRoute
+  '/produkte/$slug': typeof ProdukteSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -112,12 +119,13 @@ export interface FileRoutesByTo {
   '/kollektionen': typeof KollektionenRoute
   '/kontakt': typeof KontaktRoute
   '/konto': typeof KontoRoute
-  '/produkte': typeof ProdukteRoute
+  '/produkte': typeof ProdukteRouteWithChildren
   '/sets': typeof SetsRoute
   '/ueber-uns': typeof UeberUnsRoute
   '/versand-zahlung': typeof VersandZahlungRoute
   '/warenkorb': typeof WarenkorbRoute
   '/widerruf': typeof WiderrufRoute
+  '/produkte/$slug': typeof ProdukteSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -128,12 +136,13 @@ export interface FileRoutesById {
   '/kollektionen': typeof KollektionenRoute
   '/kontakt': typeof KontaktRoute
   '/konto': typeof KontoRoute
-  '/produkte': typeof ProdukteRoute
+  '/produkte': typeof ProdukteRouteWithChildren
   '/sets': typeof SetsRoute
   '/ueber-uns': typeof UeberUnsRoute
   '/versand-zahlung': typeof VersandZahlungRoute
   '/warenkorb': typeof WarenkorbRoute
   '/widerruf': typeof WiderrufRoute
+  '/produkte/$slug': typeof ProdukteSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -151,6 +160,7 @@ export interface FileRouteTypes {
     | '/versand-zahlung'
     | '/warenkorb'
     | '/widerruf'
+    | '/produkte/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -166,6 +176,7 @@ export interface FileRouteTypes {
     | '/versand-zahlung'
     | '/warenkorb'
     | '/widerruf'
+    | '/produkte/$slug'
   id:
     | '__root__'
     | '/'
@@ -181,6 +192,7 @@ export interface FileRouteTypes {
     | '/versand-zahlung'
     | '/warenkorb'
     | '/widerruf'
+    | '/produkte/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -191,7 +203,7 @@ export interface RootRouteChildren {
   KollektionenRoute: typeof KollektionenRoute
   KontaktRoute: typeof KontaktRoute
   KontoRoute: typeof KontoRoute
-  ProdukteRoute: typeof ProdukteRoute
+  ProdukteRoute: typeof ProdukteRouteWithChildren
   SetsRoute: typeof SetsRoute
   UeberUnsRoute: typeof UeberUnsRoute
   VersandZahlungRoute: typeof VersandZahlungRoute
@@ -292,8 +304,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/produkte/$slug': {
+      id: '/produkte/$slug'
+      path: '/$slug'
+      fullPath: '/produkte/$slug'
+      preLoaderRoute: typeof ProdukteSlugRouteImport
+      parentRoute: typeof ProdukteRoute
+    }
   }
 }
+
+interface ProdukteRouteChildren {
+  ProdukteSlugRoute: typeof ProdukteSlugRoute
+}
+
+const ProdukteRouteChildren: ProdukteRouteChildren = {
+  ProdukteSlugRoute: ProdukteSlugRoute,
+}
+
+const ProdukteRouteWithChildren = ProdukteRoute._addFileChildren(
+  ProdukteRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
@@ -303,7 +334,7 @@ const rootRouteChildren: RootRouteChildren = {
   KollektionenRoute: KollektionenRoute,
   KontaktRoute: KontaktRoute,
   KontoRoute: KontoRoute,
-  ProdukteRoute: ProdukteRoute,
+  ProdukteRoute: ProdukteRouteWithChildren,
   SetsRoute: SetsRoute,
   UeberUnsRoute: UeberUnsRoute,
   VersandZahlungRoute: VersandZahlungRoute,

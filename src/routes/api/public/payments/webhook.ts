@@ -48,7 +48,7 @@ async function handleCheckoutCompleted(sessionObj: any, env: StripeEnv) {
         amount_tax: session.total_details?.amount_tax ?? 0,
         currency: session.currency ?? "eur",
         items,
-        shipping_address: session.customer_details?.address ?? session.shipping_details?.address ?? null,
+        shipping_address: session.customer_details?.address ?? (session as any).shipping_details?.address ?? null,
         environment: env,
         updated_at: new Date().toISOString(),
       },

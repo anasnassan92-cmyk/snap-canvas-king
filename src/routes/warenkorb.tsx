@@ -123,16 +123,15 @@ function CartPage() {
                   <p className="text-[10px] text-ivory-muted">inkl. MwSt</p>
                 </dl>
 
-                <button
-                  disabled
-                  title="Wird mit Stripe in Phase 3 freigeschaltet"
-                  className="mt-6 flex w-full cursor-not-allowed items-center justify-center gap-3 bg-gold px-7 py-3.5 text-[11px] uppercase tracking-luxury text-ink opacity-90"
+                <Link
+                  to="/checkout"
+                  className="mt-6 flex w-full items-center justify-center gap-3 bg-gold px-7 py-3.5 text-[11px] uppercase tracking-luxury text-ink hover:bg-gold-soft"
                   style={{ boxShadow: "var(--shadow-gold)" }}
                 >
                   Zur Kasse <ArrowRight className="h-3.5 w-3.5" />
-                </button>
+                </Link>
                 <p className="mt-3 text-center text-[10px] text-ivory-muted">
-                  Stripe-Checkout wird in der nächsten Phase aktiviert.
+                  Sicher zahlen via Stripe · Klarna · PayPal · Apple/Google Pay
                 </p>
 
                 <ul className="mt-6 space-y-2 border-t border-border pt-5 text-[11px] text-ivory-muted">

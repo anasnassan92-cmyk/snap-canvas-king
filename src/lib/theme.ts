@@ -31,9 +31,9 @@ export function setTheme(theme: Theme) {
 }
 
 export function useTheme(): [Theme, (t: Theme) => void, () => void] {
-  const theme = useSyncExternalStore(
+  const theme = useSyncExternalStore<Theme>(
     subscribe,
-    () => (typeof window !== "undefined" && document.documentElement.classList.contains("dark") ? "dark" : "light"),
+    () => (typeof document !== "undefined" && document.documentElement.classList.contains("dark") ? "dark" : "light"),
     () => "light",
   );
 

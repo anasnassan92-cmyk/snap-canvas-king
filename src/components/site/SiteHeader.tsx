@@ -41,6 +41,13 @@ export function SiteHeader() {
           <button aria-label="Suche" className="transition-colors hover:text-gold">
             <Search className="h-4 w-4" />
           </button>
+          <button
+            onClick={toggleTheme}
+            aria-label={theme === "dark" ? "Zu hellem Modus wechseln" : "Zu dunklem Modus wechseln"}
+            className="transition-colors hover:text-gold"
+          >
+            {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+          </button>
           <a href="/konto" aria-label="Konto" className="transition-colors hover:text-gold">
             <User className="h-4 w-4" />
           </a>

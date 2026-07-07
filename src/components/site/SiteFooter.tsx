@@ -1,4 +1,4 @@
-import logoGold from "@/assets/lam/logo-gold.png.asset.json";
+import logoGold from "@/assets/lam/logo-gold-transparent.png.asset.json";
 import { PaymentMethodLogos, ShippingLogos } from "@/components/site/PaymentIcons";
 import { Instagram } from "lucide-react";
 

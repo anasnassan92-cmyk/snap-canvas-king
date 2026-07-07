@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { Search, User, ShoppingBag, Sun, Moon } from "lucide-react";
-import logoGold from "@/assets/lam/logo-gold.png.asset.json";
+import logoGold from "@/assets/lam/logo-gold-transparent.png.asset.json";
 import { useCart, resolveLines, cartTotals } from "@/lib/cart";
 import { useTheme } from "@/lib/theme";
 

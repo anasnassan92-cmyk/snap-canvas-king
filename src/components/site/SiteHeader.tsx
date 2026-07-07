@@ -1,7 +1,8 @@
 import { Link } from "@tanstack/react-router";
-import { Search, User, ShoppingBag } from "lucide-react";
+import { Search, User, ShoppingBag, Sun, Moon } from "lucide-react";
 import logoGold from "@/assets/lam/logo-gold.png.asset.json";
 import { useCart, resolveLines, cartTotals } from "@/lib/cart";
+import { useTheme } from "@/lib/theme";
 
 const NAV = [
   { label: "Parfums", href: "/produkte" },

@@ -16,6 +16,7 @@ export function SiteHeader() {
   const lines = useCart((s) => s.lines);
   const open = useCart((s) => s.open);
   const { count } = cartTotals(resolveLines(lines));
+  const [theme, , toggleTheme] = useTheme();
 
   return (
     <header className="absolute left-0 right-0 top-[34px] z-40">

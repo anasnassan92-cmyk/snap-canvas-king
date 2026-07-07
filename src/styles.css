@@ -90,8 +90,37 @@
 }
 
 .dark {
+  /* Flip brand palette to true dark */
+  --matte-black: oklch(0.14 0.005 90);   /* page surface — near-black */
+  --charcoal:    oklch(0.19 0.006 90);   /* card / soft surface */
+  --gold:        oklch(0.78 0.13 82);
+  --gold-soft:   oklch(0.85 0.10 86);
+  --amber:       oklch(0.62 0.13 60);
+  --ivory:       oklch(0.96 0.01 90);    /* primary text */
+  --ivory-muted: oklch(0.72 0.01 90);    /* secondary text */
+  --ink:         oklch(0.10 0 0);
+
   --background: var(--matte-black);
   --foreground: var(--ivory);
+  --card: var(--charcoal);
+  --card-foreground: var(--ivory);
+  --popover: var(--charcoal);
+  --popover-foreground: var(--ivory);
+  --primary: var(--gold);
+  --primary-foreground: var(--ink);
+  --secondary: var(--charcoal);
+  --secondary-foreground: var(--ivory);
+  --muted: oklch(0.22 0.006 90);
+  --muted-foreground: var(--ivory-muted);
+  --accent: var(--gold);
+  --accent-foreground: var(--ink);
+  --border: oklch(1 0 0 / 12%);
+  --input: oklch(1 0 0 / 16%);
+  --ring: var(--gold);
+
+  --gradient-hero: radial-gradient(ellipse at 75% 40%, oklch(0.35 0.08 70 / 0.35), transparent 60%),
+                   linear-gradient(180deg, oklch(0.14 0.005 90) 0%, oklch(0.10 0.005 90) 100%);
+  --shadow-elevated: 0 30px 80px -30px oklch(0 0 0 / 0.6);
 }
 
 @layer base {

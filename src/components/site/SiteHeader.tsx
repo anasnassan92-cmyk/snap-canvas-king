@@ -1,7 +1,8 @@
 import { Link } from "@tanstack/react-router";
-import { Search, User, ShoppingBag } from "lucide-react";
+import { Search, User, ShoppingBag, Sun, Moon } from "lucide-react";
 import logoGold from "@/assets/lam/logo-gold.png.asset.json";
 import { useCart, resolveLines, cartTotals } from "@/lib/cart";
+import { useTheme } from "@/lib/theme";
 
 const NAV = [
   { label: "Parfums", href: "/produkte" },
@@ -15,6 +16,7 @@ export function SiteHeader() {
   const lines = useCart((s) => s.lines);
   const open = useCart((s) => s.open);
   const { count } = cartTotals(resolveLines(lines));
+  const [theme, , toggleTheme] = useTheme();
 
   return (
     <header className="absolute left-0 right-0 top-[34px] z-40">
@@ -38,6 +40,13 @@ export function SiteHeader() {
         <div className="flex items-center gap-5 text-ivory/85">
           <button aria-label="Suche" className="transition-colors hover:text-gold">
             <Search className="h-4 w-4" />
+          </button>
+          <button
+            onClick={toggleTheme}
+            aria-label={theme === "dark" ? "Zu hellem Modus wechseln" : "Zu dunklem Modus wechseln"}
+            className="transition-colors hover:text-gold"
+          >
+            {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
           </button>
           <a href="/konto" aria-label="Konto" className="transition-colors hover:text-gold">
             <User className="h-4 w-4" />

@@ -52,31 +52,37 @@ function CartPage() {
               <div className="space-y-4">
                 {resolved.map((l) => (
                   <article
-                    key={`${l.slug}-${l.ml}`}
+                    key={l.id}
                     className="flex gap-4 rounded-sm border border-border bg-charcoal/40 p-4 sm:gap-6 sm:p-6"
                   >
-                    <Link to="/produkte/$slug" params={{ slug: l.slug }} className="shrink-0">
-                      <img src={l.product.image} alt={l.product.name} className="h-32 w-24 rounded-sm bg-charcoal object-contain" />
-                    </Link>
+                    <img src={l.image} alt={l.title} className="h-32 w-24 shrink-0 rounded-sm bg-charcoal object-contain" />
                     <div className="flex flex-1 flex-col">
                       <div className="flex items-start justify-between gap-4">
                         <div>
-                          <p className="text-[10px] uppercase tracking-luxury text-gold">{l.product.family}</p>
-                          <Link
-                            to="/produkte/$slug"
-                            params={{ slug: l.slug }}
-                            className="mt-1 font-display text-lg uppercase text-ivory hover:text-gold"
-                          >
-                            {l.product.name}
-                          </Link>
-                          <p className="mt-1 text-[10px] uppercase tracking-luxury text-ivory-muted">{l.ml} ML · {EUR(l.unitPrice)}</p>
+                          <p className="text-[10px] uppercase tracking-luxury text-gold">
+                            {l.product?.family ?? "Bundle"}
+                          </p>
+                          {l.product ? (
+                            <Link
+                              to="/produkte/$slug"
+                              params={{ slug: l.slug }}
+                              className="mt-1 block font-display text-lg uppercase text-ivory hover:text-gold"
+                            >
+                              {l.title}
+                            </Link>
+                          ) : (
+                            <p className="mt-1 font-display text-lg uppercase text-ivory">{l.title}</p>
+                          )}
+                          <p className="mt-1 text-[10px] uppercase tracking-luxury text-ivory-muted">
+                            {l.subtitle} · {EUR(l.unitPrice)}
+                          </p>
                         </div>
                         <p className="font-sans text-base font-semibold text-ivory">{EUR(l.lineTotal)}</p>
                       </div>
                       <div className="mt-auto flex items-center justify-between pt-4">
                         <div className="inline-flex items-center border border-border">
                           <button
-                            onClick={() => setQty(l.slug, l.ml, l.qty - 1)}
+                            onClick={() => setQty(l.id, l.qty - 1)}
                             className="px-3 py-2 text-ivory-muted hover:text-gold"
                             aria-label="Menge reduzieren"
                           >
@@ -84,7 +90,7 @@ function CartPage() {
                           </button>
                           <span className="min-w-10 px-2 text-center text-sm text-ivory">{l.qty}</span>
                           <button
-                            onClick={() => setQty(l.slug, l.ml, l.qty + 1)}
+                            onClick={() => setQty(l.id, l.qty + 1)}
                             className="px-3 py-2 text-ivory-muted hover:text-gold"
                             aria-label="Menge erhöhen"
                           >
@@ -92,7 +98,7 @@ function CartPage() {
                           </button>
                         </div>
                         <button
-                          onClick={() => remove(l.slug, l.ml)}
+                          onClick={() => remove(l.id)}
                           className="inline-flex items-center gap-2 text-[11px] uppercase tracking-luxury text-ivory-muted hover:text-gold"
                         >
                           <Trash2 className="h-3.5 w-3.5" /> Entfernen
@@ -100,6 +106,7 @@ function CartPage() {
                       </div>
                     </div>
                   </article>
+
                 ))}
               </div>
 

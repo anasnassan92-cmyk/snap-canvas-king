@@ -163,7 +163,7 @@ function ShopCard({ product: p }: { product: Product }) {
             <p className="text-[10px] text-ivory-muted">inkl. MwSt</p>
           </div>
           <button
-            onClick={() => add(p.slug, size.ml, 1)}
+            onClick={() => add({ slug: p.slug, ml: size.ml, qty: 1 })}
             aria-label={`${p.name} ${size.ml} ML in den Warenkorb`}
             className="inline-flex items-center gap-2 bg-gold px-3 py-2 text-[10px] uppercase tracking-luxury text-ink transition-colors hover:bg-gold-soft"
           >

@@ -121,7 +121,7 @@ function ProductPage() {
                   <button onClick={() => setQty((q) => q + 1)} className="px-4 py-3 text-ivory-muted hover:text-gold" aria-label="Menge erhöhen">+</button>
                 </div>
                 <button
-                  onClick={() => add(p.slug, size.ml, qty)}
+                  onClick={() => add({ slug: p.slug, ml: size.ml, qty })}
                   className="flex-1 bg-gold px-7 py-3.5 text-[11px] uppercase tracking-luxury text-ink transition-colors hover:bg-gold-soft"
                   style={{ boxShadow: "var(--shadow-gold)" }}
                 >

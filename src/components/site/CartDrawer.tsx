@@ -66,16 +66,16 @@ export function CartDrawer() {
           ) : (
             <ul className="space-y-5">
               {resolved.map((l) => (
-                <li key={`${l.slug}-${l.ml}`} className="flex gap-4">
-                  <img src={l.product.image} alt={l.product.name} className="h-24 w-20 shrink-0 rounded-sm bg-charcoal object-contain" />
+                <li key={l.id} className="flex gap-4">
+                  <img src={l.image} alt={l.title} className="h-24 w-20 shrink-0 rounded-sm bg-charcoal object-contain" />
                   <div className="flex flex-1 flex-col">
-                    <p className="font-display text-sm uppercase text-ivory">{l.product.name}</p>
-                    <p className="text-[10px] uppercase tracking-luxury text-ivory-muted">{l.ml} ML</p>
+                    <p className="font-display text-sm uppercase text-ivory">{l.title}</p>
+                    <p className="text-[10px] uppercase tracking-luxury text-ivory-muted">{l.subtitle}</p>
                     <p className="mt-1 text-xs text-ivory-muted">{EUR(l.unitPrice)}</p>
                     <div className="mt-auto flex items-center justify-between">
                       <div className="inline-flex items-center border border-border">
                         <button
-                          onClick={() => setQty(l.slug, l.ml, l.qty - 1)}
+                          onClick={() => setQty(l.id, l.qty - 1)}
                           aria-label="Menge reduzieren"
                           className="px-2 py-1 text-ivory-muted hover:text-gold"
                         >
@@ -83,7 +83,7 @@ export function CartDrawer() {
                         </button>
                         <span className="min-w-8 px-2 text-center text-sm text-ivory">{l.qty}</span>
                         <button
-                          onClick={() => setQty(l.slug, l.ml, l.qty + 1)}
+                          onClick={() => setQty(l.id, l.qty + 1)}
                           aria-label="Menge erhöhen"
                           className="px-2 py-1 text-ivory-muted hover:text-gold"
                         >
@@ -91,7 +91,7 @@ export function CartDrawer() {
                         </button>
                       </div>
                       <button
-                        onClick={() => remove(l.slug, l.ml)}
+                        onClick={() => remove(l.id)}
                         aria-label="Entfernen"
                         className="text-ivory-muted hover:text-gold"
                       >
@@ -99,6 +99,7 @@ export function CartDrawer() {
                       </button>
                     </div>
                   </div>
+
                   <p className="font-sans text-sm font-semibold text-ivory">{EUR(l.lineTotal)}</p>
                 </li>
               ))}

@@ -80,7 +80,7 @@ export const createCheckoutSession = createServerFn({ method: "POST" })
           {
             shipping_rate_data: {
               type: "fixed_amount",
-              display_name: "DHL/DPD Standard (1–3 Werktage)",
+              display_name: "Versand Deutschland (DHL/DPD, 1–3 Werktage)",
               fixed_amount: { amount: 490, currency: "eur" },
               tax_behavior: "inclusive",
               tax_code: "txcd_92010001",
@@ -93,13 +93,39 @@ export const createCheckoutSession = createServerFn({ method: "POST" })
           {
             shipping_rate_data: {
               type: "fixed_amount",
-              display_name: "Kostenloser Versand (ab 49,99 €)",
+              display_name: "Kostenloser Versand (ab 49,90 €)",
               fixed_amount: { amount: 0, currency: "eur" },
               tax_behavior: "inclusive",
               tax_code: "txcd_92010001",
               delivery_estimate: {
                 minimum: { unit: "business_day", value: 1 },
                 maximum: { unit: "business_day", value: 3 },
+              },
+            },
+          },
+          {
+            shipping_rate_data: {
+              type: "fixed_amount",
+              display_name: "Versand Österreich",
+              fixed_amount: { amount: 990, currency: "eur" },
+              tax_behavior: "inclusive",
+              tax_code: "txcd_92010001",
+              delivery_estimate: {
+                minimum: { unit: "business_day", value: 2 },
+                maximum: { unit: "business_day", value: 5 },
+              },
+            },
+          },
+          {
+            shipping_rate_data: {
+              type: "fixed_amount",
+              display_name: "Versand Schweiz",
+              fixed_amount: { amount: 1490, currency: "eur" },
+              tax_behavior: "inclusive",
+              tax_code: "txcd_92010001",
+              delivery_estimate: {
+                minimum: { unit: "business_day", value: 3 },
+                maximum: { unit: "business_day", value: 7 },
               },
             },
           },

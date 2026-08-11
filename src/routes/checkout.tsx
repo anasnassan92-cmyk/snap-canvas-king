@@ -37,7 +37,7 @@ function CheckoutPage() {
     const { data: { user } } = await supabase.auth.getUser();
     const result = await createCheckoutSession({
       data: {
-        lines: lines.map((l) => ({ slug: l.slug, ml: l.ml, qty: l.qty })),
+        lines: resolved.map((l) => ({ lookupKey: l.lookupKey, qty: l.qty, note: l.subtitle })),
         customerEmail: user?.email ?? undefined,
         userId: user?.id,
         returnUrl: `${window.location.origin}/checkout/return?session_id={CHECKOUT_SESSION_ID}`,

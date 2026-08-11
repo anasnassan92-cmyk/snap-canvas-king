@@ -1,13 +1,9 @@
 import { createServerFn } from "@tanstack/react-start";
 import { type StripeEnv, createStripeClient, getStripeErrorMessage } from "@/lib/stripe.server";
 
-export type CheckoutLineInput = { slug: string; ml: number; qty: number };
+export type CheckoutLineInput = { lookupKey: string; qty: number; note?: string };
 
 type CheckoutSessionResult = { clientSecret: string } | { error: string };
-
-function priceIdFor(slug: string, ml: number): string {
-  return `${slug.replace(/-/g, "_")}_${ml}ml`;
-}
 
 export const createCheckoutSession = createServerFn({ method: "POST" })
   .inputValidator(
@@ -20,8 +16,7 @@ export const createCheckoutSession = createServerFn({ method: "POST" })
     }) => {
       if (!data.lines?.length) throw new Error("Cart is empty");
       for (const l of data.lines) {
-        if (![8, 30, 50, 100].includes(l.ml)) throw new Error("Invalid size");
-        if (!/^[a-z0-9-]+$/.test(l.slug)) throw new Error("Invalid slug");
+        if (!/^[a-z0-9_]+$/.test(l.lookupKey)) throw new Error("Invalid product");
         if (!Number.isInteger(l.qty) || l.qty < 1 || l.qty > 99) throw new Error("Invalid quantity");
       }
       return data;
@@ -32,16 +27,16 @@ export const createCheckoutSession = createServerFn({ method: "POST" })
       const stripe = createStripeClient(data.environment);
 
       // resolve lookup_keys → Stripe price IDs
-      const lookupKeys = data.lines.map((l) => priceIdFor(l.slug, l.ml));
+      const lookupKeys = Array.from(new Set(data.lines.map((l) => l.lookupKey)));
       const prices = await stripe.prices.list({ lookup_keys: lookupKeys, limit: 100 });
       const byKey = new Map(prices.data.map((p) => [p.lookup_key as string, p]));
 
       const line_items = data.lines.map((l) => {
-        const key = priceIdFor(l.slug, l.ml);
-        const price = byKey.get(key);
-        if (!price) throw new Error(`Price not found: ${key}`);
+        const price = byKey.get(l.lookupKey);
+        if (!price) throw new Error(`Price not found: ${l.lookupKey}`);
         return { price: price.id, quantity: l.qty };
       });
+
 
       // Resolve / create customer with userId metadata
       let customerId: string | undefined;

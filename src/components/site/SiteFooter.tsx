@@ -104,7 +104,7 @@ export function SiteFooter() {
               </h4>
               <p className="mt-3 text-xs leading-relaxed text-ivory-muted">
                 Versand aus Deutschland mit DHL & DPD in 1–3 Werktagen. Kostenloser
-                Versand ab 49,99 €. Klimaneutraler Versand inklusive.
+                Versand ab 49,90 €. Klimaneutraler Versand inklusive.
               </p>
               <div className="mt-5">
                 <ShippingLogos />

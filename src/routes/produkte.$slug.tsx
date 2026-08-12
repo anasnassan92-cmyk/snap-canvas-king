@@ -20,7 +20,7 @@ export const Route = createFileRoute("/produkte/$slug")({
     return {
       meta: [
         { title: `${p.name} — LAMISENT ESSENCE` },
-        { name: "description", content: `${p.name} – ${p.inspired}. Extrait de Parfum in 8, 30, 50 und 100 ML.` },
+        { name: "description", content: `${p.name} – ${p.inspired}. Extrait de Parfum in 30, 50 und 100 ML.` },
         { property: "og:title", content: `${p.name} — LAMISENT ESSENCE` },
         { property: "og:description", content: `${p.inspired}. Extrait de Parfum, ${p.family}.` },
         { property: "og:image", content: p.coverImage ?? p.image },

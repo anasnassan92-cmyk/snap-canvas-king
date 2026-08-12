@@ -37,7 +37,7 @@ function CartPage() {
             <div className="mt-16 flex flex-col items-center rounded-sm border border-border bg-charcoal/40 py-20 text-center">
               <p className="font-display text-xl uppercase text-ivory">Dein Warenkorb ist leer</p>
               <p className="mt-3 max-w-md text-sm text-ivory-muted">
-                Entdecke die LAMISENT-Kollektion — 10 Signature-Düfte, jeweils in 4 Größen.
+                Entdecke die LAMISENT-Kollektion — 10 Signature-Düfte in 30, 50 und 100 ML.
               </p>
               <Link
                 to="/produkte"

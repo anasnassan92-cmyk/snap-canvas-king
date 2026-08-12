@@ -50,8 +50,11 @@ export function SiteFooter() {
               <Instagram className="h-4 w-4" />
             </a>
             <a
-              href="#"
+              href="https://www.tiktok.com/@lamisent.com"
+              target="_blank"
+              rel="noopener noreferrer"
               aria-label="TikTok"
+
               className="text-[11px] uppercase tracking-luxury transition-colors hover:text-gold"
             >
               TikTok

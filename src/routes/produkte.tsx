@@ -15,17 +15,17 @@ export const Route = createFileRoute("/produkte")({
       {
         name: "description",
         content:
-          "Die komplette LAMISENT ESSENCE Kollektion: 10 Signature-Düfte als Extrait de Parfum in 4 Größen — 8, 30, 50 und 100 ML.",
+          "Die komplette LAMISENT ESSENCE Kollektion: 10 Signature-Düfte als Extrait de Parfum in 30, 50 und 100 ML.",
       },
       { property: "og:title", content: "Parfums — LAMISENT ESSENCE" },
-      { property: "og:description", content: "10 Signature-Düfte, jeweils in 4 Größen. Extrait de Parfum, inspiriert von Luxus." },
+      { property: "og:description", content: "10 Signature-Düfte in drei Größen. Extrait de Parfum, inspiriert von Luxus." },
     ],
   }),
   component: ProductsPage,
 });
 
 const FAMILIES = Array.from(new Set(PRODUCTS.map((p) => p.family))).sort();
-const SIZE_OPTIONS = [8, 30, 50, 100];
+const SIZE_OPTIONS = [30, 50, 100];
 
 type Sort = "featured" | "price-asc" | "price-desc" | "name";
 
@@ -55,7 +55,7 @@ function ProductsPage() {
           <p className="text-[11px] uppercase tracking-luxury text-gold">Kollektion</p>
           <h1 className="mt-3 text-4xl uppercase text-ivory md:text-5xl">Alle Düfte</h1>
           <p className="mx-auto mt-5 max-w-xl text-sm leading-relaxed text-ivory-muted">
-            10 Signature-Düfte, jeweils in 4 Größen — 8, 30, 50 und 100 ML. Extrait de Parfum, 25–30 % Konzentration.
+            10 Signature-Düfte, jeweils in 30, 50 und 100 ML. Extrait de Parfum, 25–30 % Konzentration.
           </p>
         </div>
       </section>
@@ -127,7 +127,7 @@ function Select({
 }
 
 function ShopCard({ product: p }: { product: Product }) {
-  const [sizeIdx, setSizeIdx] = useState(1);
+  const [sizeIdx, setSizeIdx] = useState(0);
   const add = useCart((s) => s.add);
   const size = p.sizes[sizeIdx];
 

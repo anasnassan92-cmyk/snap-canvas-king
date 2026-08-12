@@ -1,6 +1,6 @@
 const ITEMS = [
   "Schneller Versand 1–3 Werktage",
-  "Kostenloser Versand ab 49,99 €",
+  "Kostenloser Versand ab 49,90 €",
   "Extrait de Parfum",
   "Inspiriert von Luxus",
 ];

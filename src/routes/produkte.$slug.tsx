@@ -20,7 +20,7 @@ export const Route = createFileRoute("/produkte/$slug")({
     return {
       meta: [
         { title: `${p.name} — LAMISENT ESSENCE` },
-        { name: "description", content: `${p.name} – ${p.inspired}. Extrait de Parfum in 8, 30, 50 und 100 ML.` },
+        { name: "description", content: `${p.name} – ${p.inspired}. Extrait de Parfum in 30, 50 und 100 ML.` },
         { property: "og:title", content: `${p.name} — LAMISENT ESSENCE` },
         { property: "og:description", content: `${p.inspired}. Extrait de Parfum, ${p.family}.` },
         { property: "og:image", content: p.coverImage ?? p.image },
@@ -49,7 +49,7 @@ export const Route = createFileRoute("/produkte/$slug")({
 
 function ProductPage() {
   const { product: p } = Route.useLoaderData() as { product: Product };
-  const [sizeIdx, setSizeIdx] = useState(1);
+  const [sizeIdx, setSizeIdx] = useState(0);
   const [qty, setQty] = useState(1);
   const add = useCart((s) => s.add);
   const size = p.sizes[sizeIdx];
@@ -130,7 +130,7 @@ function ProductPage() {
               </div>
 
               <ul className="mt-8 space-y-3 border-t border-border pt-6 text-sm text-ivory-muted">
-                <li className="flex items-center gap-3"><Truck className="h-4 w-4 text-gold" /> Versand 1–3 Werktage · kostenlos ab 49,99 €</li>
+                <li className="flex items-center gap-3"><Truck className="h-4 w-4 text-gold" /> Versand 1–3 Werktage · kostenlos ab 49,90 €</li>
                 <li className="flex items-center gap-3"><RotateCcw className="h-4 w-4 text-gold" /> 14 Tage Rückgaberecht bei ungeöffnetem Flakon</li>
                 <li className="flex items-center gap-3"><ShieldCheck className="h-4 w-4 text-gold" /> Sichere Zahlung mit Klarna, PayPal, Stripe, SEPA</li>
                 <li className="flex items-center gap-3"><Sparkles className="h-4 w-4 text-gold" /> 25–30 % Duftöl-Konzentration · Extrait de Parfum</li>
@@ -141,33 +141,56 @@ function ProductPage() {
           {/* Notes / story */}
           <div className="mt-20 grid gap-12 border-t border-border pt-16 md:grid-cols-2">
             <div>
-              <p className="text-[11px] uppercase tracking-luxury text-gold">Beschreibung</p>
-              <h2 className="mt-3 text-2xl uppercase text-ivory">{p.name}</h2>
-              <p className="mt-5 text-sm leading-relaxed text-ivory-muted">
-                {p.name} ist eine LAMISENT-Hommage an einen ikonischen Vorbilder-Duft: {p.inspired.replace(/^Inspiriert von\s*/i, "")}.
-                Als Extrait de Parfum mit 25–30 % Duftöl-Konzentration entwickelt sich {p.name} über Stunden auf der Haut —
-                vom ersten Aufsprühen bis weit in den Abend.
+              <p className="text-[11px] uppercase tracking-luxury text-gold">
+                {p.no} — {p.inspired}
               </p>
-              <p className="mt-4 text-sm leading-relaxed text-ivory-muted">
-                Duftfamilie: <span className="text-ivory">{p.family}</span>. Performance: bis zu 12 Stunden Sillage. Empfohlen für Abend, Date und besondere Anlässe.
-              </p>
-            </div>
-            <div className="rounded-sm border border-border bg-charcoal/40 p-8">
-              <p className="text-[11px] uppercase tracking-luxury text-gold">Duftpyramide</p>
-              <dl className="mt-6 space-y-5 text-sm">
+              <h2 className="mt-3 text-2xl uppercase text-ivory">Beschreibung</h2>
+              <p className="mt-5 text-sm leading-relaxed text-ivory-muted">{p.description}</p>
+
+              <dl className="mt-8 space-y-4 text-sm">
                 <div>
-                  <dt className="text-[10px] uppercase tracking-luxury text-ivory-muted">Kopfnote</dt>
-                  <dd className="mt-1 text-ivory">Bergamotte · Pfeffer · Zitrusnoten</dd>
+                  <dt className="text-[10px] uppercase tracking-luxury text-ivory-muted">Duftrichtung</dt>
+                  <dd className="mt-1 text-ivory">{p.direction}</dd>
                 </div>
                 <div>
-                  <dt className="text-[10px] uppercase tracking-luxury text-ivory-muted">Herznote</dt>
-                  <dd className="mt-1 text-ivory">{p.family}</dd>
+                  <dt className="text-[10px] uppercase tracking-luxury text-ivory-muted">Charakter</dt>
+                  <dd className="mt-1 text-ivory">{p.character.join(" · ")}</dd>
                 </div>
                 <div>
-                  <dt className="text-[10px] uppercase tracking-luxury text-ivory-muted">Basisnote</dt>
-                  <dd className="mt-1 text-ivory">Amber · Moschus · Sandelholz</dd>
+                  <dt className="text-[10px] uppercase tracking-luxury text-ivory-muted">Ideal für</dt>
+                  <dd className="mt-1 text-ivory">{p.idealFor.join(" · ")}</dd>
                 </div>
               </dl>
+            </div>
+            <div className="rounded-sm border border-border bg-charcoal/40 p-8">
+              <p className="text-[11px] uppercase tracking-luxury text-gold">
+                {p.accords ? p.accords.label : "Duftpyramide"}
+              </p>
+              {p.accords ? (
+                <>
+                  <p className="mt-6 text-sm text-ivory">{p.accords.notes.join(" | ")}</p>
+                  {p.accords.note && (
+                    <p className="mt-5 border-t border-border pt-4 text-[11px] leading-relaxed text-ivory-muted">
+                      {p.accords.note}
+                    </p>
+                  )}
+                </>
+              ) : (
+                <dl className="mt-6 space-y-5 text-sm">
+                  <div>
+                    <dt className="text-[10px] uppercase tracking-luxury text-ivory-muted">Kopfnote</dt>
+                    <dd className="mt-1 text-ivory">{p.top?.join(" | ")}</dd>
+                  </div>
+                  <div>
+                    <dt className="text-[10px] uppercase tracking-luxury text-ivory-muted">Herznote</dt>
+                    <dd className="mt-1 text-ivory">{p.heart?.join(" | ")}</dd>
+                  </div>
+                  <div>
+                    <dt className="text-[10px] uppercase tracking-luxury text-ivory-muted">Basisnote</dt>
+                    <dd className="mt-1 text-ivory">{p.base?.join(" | ")}</dd>
+                  </div>
+                </dl>
+              )}
             </div>
           </div>
 
@@ -189,7 +212,7 @@ function ProductPage() {
                   <div className="p-5">
                     <p className="text-[10px] uppercase tracking-luxury text-gold">{r.family}</p>
                     <p className="mt-1 font-display text-base uppercase text-ivory">{r.name}</p>
-                    <p className="mt-2 text-sm text-ivory">{EUR(r.sizes[1].price)}</p>
+                    <p className="mt-2 text-sm text-ivory">{EUR(r.sizes[0].price)}</p>
                   </div>
                 </Link>
               ))}

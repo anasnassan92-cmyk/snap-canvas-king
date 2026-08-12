@@ -46,12 +46,15 @@ export function SiteFooter() {
             Impress. Inspire. Remain.
           </p>
           <div className="mt-6 flex items-center gap-4 text-ivory-muted">
-            <a href="#" aria-label="Instagram" className="transition-colors hover:text-gold">
+            <a href="https://www.instagram.com/lamisent" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="transition-colors hover:text-gold">
               <Instagram className="h-4 w-4" />
             </a>
             <a
-              href="#"
+              href="https://www.tiktok.com/@lamisent.com"
+              target="_blank"
+              rel="noopener noreferrer"
               aria-label="TikTok"
+
               className="text-[11px] uppercase tracking-luxury transition-colors hover:text-gold"
             >
               TikTok
@@ -101,7 +104,7 @@ export function SiteFooter() {
               </h4>
               <p className="mt-3 text-xs leading-relaxed text-ivory-muted">
                 Versand aus Deutschland mit DHL & DPD in 1–3 Werktagen. Kostenloser
-                Versand ab 49,99 €. Klimaneutraler Versand inklusive.
+                Versand ab 49,90 €. Klimaneutraler Versand inklusive.
               </p>
               <div className="mt-5">
                 <ShippingLogos />

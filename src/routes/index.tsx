@@ -1,24 +1,20 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
-import { ArrowRight, Sparkles, Clock, Leaf, Truck, Quote } from "lucide-react";
+import { ArrowRight, Instagram, Plus } from "lucide-react";
 
 import { AnnouncementBar } from "@/components/site/AnnouncementBar";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
 
-import boxSingle from "@/assets/lam/box-single.png.asset.json";
 import boxDiscovery from "@/assets/lam/box-discovery-set.png.asset.json";
 import bottle8 from "@/assets/lam/bottle-8ml-transparent.png.asset.json";
 import deckCover from "@/assets/lam/deck-cover.png.asset.json";
 import bannerLight from "@/assets/lam/banner-light.png.asset.json";
 import bannerDark from "@/assets/lam/banner-dark.png.asset.json";
 import bannerModel from "@/assets/lam/banner-model.png.asset.json";
-import heroVideo from "@/assets/lam/hero-video.mp4.asset.json";
-import heroVideo2 from "@/assets/lam/hero-video-2.mp4.asset.json";
-import heroVideo3 from "@/assets/lam/hero-video-3.mp4.asset.json";
-import adBanner from "@/assets/lam/add-in-website-banner.png.asset.json";
 
-import { PRODUCTS, EUR, type Product } from "@/data/products";
+import { PRODUCTS, DISCOVERY_BOX, SOCIALS, EUR, type Product } from "@/data/products";
+import { useCart } from "@/lib/cart";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -27,14 +23,13 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "10 Signature-Düfte als Extrait de Parfum in 4 Größen — 8, 30, 50 und 100 ML. Inspiriert von luxuriösen Vorbildern. Versand 1–3 Werktage, kostenlos ab 49,99 €.",
+          "10 Signature-Düfte als Extrait de Parfum in 30, 50 und 100 ML. Discovery Box mit 6 × 8 ML frei kombinierbar. Versand 1–3 Werktage, kostenlos ab 49,90 €.",
       },
       { property: "og:type", content: "website" },
       { property: "og:title", content: "LAMISENT ESSENCE — Duft, der deine Geschichte erzählt" },
       {
         property: "og:description",
-        content:
-          "Extrait de Parfum, inspiriert von Luxus. 10 Signature-Düfte, jeweils in 4 Größen. Impress. Inspire. Remain.",
+        content: "Extrait de Parfum, inspiriert von Luxus. 10 Signature-Düfte in 30, 50 und 100 ML.",
       },
       { property: "og:image", content: deckCover.url },
       { name: "twitter:card", content: "summary_large_image" },
@@ -45,32 +40,10 @@ export const Route = createFileRoute("/")({
   component: Home,
 });
 
-const BESTSELLERS = PRODUCTS.slice(0, 3);
-const NEW_ARRIVALS = PRODUCTS.slice(3, 7); // 4 products → 2×2 on laptop
-const SALE_SLUGS = ["angels-share", "blue-talisman", "naxos"];
-const ABOUT_PRODUCTS = [PRODUCTS[0], PRODUCTS[1], PRODUCTS[4]];
-
-const USPS = [
-  { icon: Sparkles, title: "Premium-Zutaten", desc: "Hochkonzentrierte Essenzen, bezogen aus etablierten Häusern." },
-  { icon: Clock, title: "Lang anhaltend", desc: "Extrait de Parfum mit 25–30 % Duftöl. Sillage bis zu 12 Stunden." },
-  { icon: Leaf, title: "Inspiriert von Luxus", desc: "Anlehnungen an niche und designer Originale — fair bepreist." },
-  { icon: Truck, title: "Schneller Versand", desc: "Aus Deutschland in 1–3 Werktagen, kostenlos ab 49,99 €." },
-];
-
-const REVIEWS = [
-  { quote: "Endlich ein Extrait, das den Vergleich mit dem Original nicht scheut. Der Sillage ist beeindruckend, der Preis ehrlich.", name: "Lukas M.", place: "München" },
-  { quote: "Imagination begleitet mich seit Wochen. Kompliment am ersten Tag, Kompliment am zehnten. Genau das, was ich gesucht habe.", name: "Daniel R.", place: "Hamburg" },
-  { quote: "Das Discovery Set war der perfekte Einstieg. Verpackung wertig, Düfte präzise. LAMISENT ist jetzt fester Teil meiner Routine.", name: "Sebastian H.", place: "Berlin" },
-];
-
-type HeroSlide =
-  | { kind: "video"; src: string; poster: string }
-  | { kind: "image"; src: string; alt: string };
-
-const HERO_SLIDES: HeroSlide[] = [
-  { kind: "image", src: bannerModel.url, alt: "LAMISENT ESSENCE — A Scent of Confidence" },
-  { kind: "image", src: bannerLight.url, alt: "LAMISENT ESSENCE — Extrait de Parfum" },
-  { kind: "image", src: bannerDark.url, alt: "LAMISENT ESSENCE — Extrait de Parfum" },
+const HERO_SLIDES = [
+  { src: bannerModel.url, alt: "LAMISENT ESSENCE — A Scent of Confidence" },
+  { src: bannerLight.url, alt: "LAMISENT ESSENCE — Extrait de Parfum" },
+  { src: bannerDark.url, alt: "LAMISENT ESSENCE — Extrait de Parfum" },
 ];
 
 function HeroSlider() {
@@ -83,23 +56,18 @@ function HeroSlider() {
     <div className="relative w-full overflow-hidden bg-charcoal" style={{ aspectRatio: "1920 / 820" }}>
       {HERO_SLIDES.map((s, i) => (
         <div
-          key={i}
+          key={s.src}
           className="absolute inset-0 transition-opacity duration-1000"
           style={{ opacity: i === idx ? 1 : 0 }}
           aria-hidden={i !== idx}
         >
-          {s.kind === "video" ? (
-            <video src={s.src} autoPlay muted loop playsInline poster={s.poster} className="h-full w-full object-cover" />
-          ) : (
-            <img src={s.src} alt={s.alt} className="h-full w-full object-cover" fetchPriority={i === 0 ? "high" : "low"} />
-          )}
+          <img src={s.src} alt={s.alt} className="h-full w-full object-cover" fetchPriority={i === 0 ? "high" : "low"} />
         </div>
       ))}
-      {/* dots */}
       <div className="absolute inset-x-0 bottom-4 z-10 flex justify-center gap-2">
-        {HERO_SLIDES.map((_, i) => (
+        {HERO_SLIDES.map((s, i) => (
           <button
-            key={i}
+            key={s.src}
             onClick={() => setIdx(i)}
             aria-label={`Slide ${i + 1}`}
             className={`h-1.5 rounded-full transition-all ${i === idx ? "w-8 bg-gold" : "w-1.5 bg-white/50 hover:bg-white/80"}`}
@@ -110,248 +78,204 @@ function HeroSlider() {
   );
 }
 
-function VideoLoop({ sources }: { sources: string[] }) {
-  const [i, setI] = useState(0);
-  return (
-    <video
-      key={sources[i]}
-      src={sources[i]}
-      autoPlay
-      muted
-      playsInline
-      onEnded={() => setI((p) => (p + 1) % sources.length)}
-      className="h-full w-full object-cover"
-    />
-  );
-}
-
-
 function Home() {
+  const [showAll, setShowAll] = useState(false);
+  const visible = showAll ? PRODUCTS : PRODUCTS.slice(0, 5);
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       <AnnouncementBar />
       <SiteHeader />
 
-      {/* HERO SLIDER — video + 2 banners, rotates every 4s */}
+      {/* 1 — HERO BANNER */}
       <section className="relative isolate overflow-hidden bg-background pt-[92px]">
         <HeroSlider />
         <div className="mx-auto flex max-w-7xl flex-col items-center gap-6 px-6 py-14 text-center">
-          <p className="text-[11px] uppercase tracking-luxury text-gold">Extrait de Parfum · Made for Men</p>
+          <p className="text-[11px] uppercase tracking-luxury text-gold">Extrait de Parfum</p>
           <h1 className="text-balance text-[34px] font-semibold uppercase leading-[1.05] tracking-[0.02em] text-ivory md:text-[56px]">
             Duft, der deine <span className="text-gold-gradient">Geschichte</span> erzählt.
           </h1>
           <p className="max-w-xl text-base leading-relaxed text-ivory-muted">
-            10 Signature-Düfte, jeweils erhältlich in 4 Größen — 8, 30, 50 und 100 ML. Hergestellt in kleinen Chargen, mit kompromissloser Konzentration.
+            10 Signature-Düfte in 30, 50 und 100 ML. Hergestellt in kleinen Chargen, mit kompromissloser Konzentration.
           </p>
           <p className="font-display text-sm uppercase tracking-luxury text-gold">Impress. Inspire. Remain.</p>
           <div className="mt-4 flex flex-wrap items-center justify-center gap-4">
-            <a href="/produkte" className="group inline-flex items-center gap-3 rounded-sm bg-gold px-7 py-3.5 text-[11px] uppercase tracking-luxury text-ink transition-all hover:bg-gold-soft" style={{ boxShadow: "var(--shadow-gold)" }}>
+            <Link
+              to="/produkte"
+              className="group inline-flex items-center gap-3 rounded-sm bg-gold px-7 py-3.5 text-[11px] uppercase tracking-luxury text-ink transition-all hover:bg-gold-soft"
+              style={{ boxShadow: "var(--shadow-gold)" }}
+            >
               Jetzt entdecken
               <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
-            </a>
-            <a href="/sets" className="inline-flex items-center gap-3 border border-border px-7 py-3.5 text-[11px] uppercase tracking-luxury text-ivory transition-colors hover:border-gold hover:text-gold">
-              Discovery Set
-            </a>
+            </Link>
+            <Link
+              to="/sets"
+              className="inline-flex items-center gap-3 border border-border px-7 py-3.5 text-[11px] uppercase tracking-luxury text-ivory transition-colors hover:border-gold hover:text-gold"
+            >
+              Discovery Box
+            </Link>
           </div>
         </div>
       </section>
 
-      <section className="border-y border-border bg-charcoal/60">
-        <div className="mx-auto grid max-w-7xl gap-10 px-6 py-14 sm:grid-cols-2 md:grid-cols-4">
-          {USPS.map(({ icon: Icon, title, desc }) => (
-            <div key={title} className="flex items-start gap-4">
-              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-gold/40 text-gold">
-                <Icon className="h-4 w-4" />
-              </span>
-              <div>
-                <h3 className="font-sans text-[11px] uppercase tracking-luxury text-ivory">{title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-ivory-muted">{desc}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* CINEMATIC VERTICAL VIDEO — loops through both clips in the same frame */}
-      <section className="bg-background py-24">
+      {/* 2 — KOLLEKTION: 5 in einer Reihe, „Mehr anzeigen" enthüllt die restlichen 5 */}
+      <section className="bg-background pb-24">
         <div className="mx-auto max-w-7xl px-6">
           <div className="text-center">
-            <p className="text-[11px] uppercase tracking-luxury text-gold">Cinematic</p>
-            <h2 className="mt-3 text-3xl uppercase text-ivory md:text-4xl">
-              LAMISENT in <span className="text-gold-gradient">Bewegung</span>
-            </h2>
-            <p className="mx-auto mt-5 max-w-xl text-sm leading-relaxed text-ivory-muted">
-              Eingefangene Momente — die Essenz unserer Düfte in Bewegung.
-            </p>
+            <p className="text-[11px] uppercase tracking-luxury text-gold">Kollektion</p>
+            <h2 className="mt-3 text-3xl uppercase text-ivory md:text-4xl">Die 10 Signature-Düfte</h2>
           </div>
-          <div className="mx-auto mt-14 max-w-sm">
-            <div className="relative overflow-hidden rounded-sm border border-border bg-charcoal" style={{ aspectRatio: "9 / 16" }}>
-              <VideoLoop sources={[heroVideo.url, heroVideo2.url, heroVideo3.url]} />
+          <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+            {visible.map((p) => (
+              <ProductCard key={p.slug} product={p} />
+            ))}
+          </div>
+          {!showAll && (
+            <div className="mt-12 flex justify-center">
+              <button
+                onClick={() => setShowAll(true)}
+                className="inline-flex items-center gap-3 border border-gold px-8 py-3.5 text-[11px] uppercase tracking-luxury text-gold transition-colors hover:bg-gold hover:text-ink"
+              >
+                Mehr anzeigen <Plus className="h-3.5 w-3.5" />
+              </button>
             </div>
-          </div>
+          )}
         </div>
       </section>
 
-
-      <ProductSection eyebrow="Bestseller" title="Kundenfavoriten" products={BESTSELLERS} />
-
-
-      {/* ABOUT — now with a 3-product gallery instead of an empty deck */}
-      <section className="bg-background py-24">
+      {/* 3 — ÜBER LAMISENT ESSENCE */}
+      <section className="border-y border-border bg-charcoal/40 py-24">
         <div className="mx-auto grid max-w-7xl items-center gap-14 px-6 md:grid-cols-2">
           <div className="grid grid-cols-2 gap-3">
-            <a
-              href={`/produkte/${ABOUT_PRODUCTS[0].slug}`}
-              className="group relative col-span-2 block aspect-[16/10] overflow-hidden rounded-sm border border-border bg-charcoal"
-            >
+            <div className="col-span-2 aspect-[16/10] overflow-hidden rounded-sm border border-border bg-charcoal">
               <img
-                src={ABOUT_PRODUCTS[0].coverImage ?? ABOUT_PRODUCTS[0].image}
-                alt={ABOUT_PRODUCTS[0].name}
-                className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                src={PRODUCTS[0].coverImage ?? PRODUCTS[0].image}
+                alt={PRODUCTS[0].name}
+                className="h-full w-full object-cover"
+                loading="lazy"
               />
-              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-4">
-                <p className="font-display text-sm uppercase tracking-luxury text-white">{ABOUT_PRODUCTS[0].name}</p>
+            </div>
+            {[PRODUCTS[1], PRODUCTS[4]].map((p) => (
+              <div key={p.slug} className="aspect-square overflow-hidden rounded-sm border border-border bg-charcoal">
+                <img src={p.coverImage ?? p.image} alt={p.name} className="h-full w-full object-cover" loading="lazy" />
               </div>
-            </a>
-            {[ABOUT_PRODUCTS[1], ABOUT_PRODUCTS[2]].map((p) => (
-              <a
-                key={p.slug}
-                href={`/produkte/${p.slug}`}
-                className="group relative block aspect-[4/5] overflow-hidden rounded-sm border border-border bg-charcoal"
-              >
-                <img
-                  src={p.coverImage ?? p.image}
-                  alt={p.name}
-                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-3">
-                  <p className="font-display text-xs uppercase tracking-luxury text-white">{p.name}</p>
-                </div>
-              </a>
             ))}
           </div>
           <div>
-            <p className="text-[11px] uppercase tracking-luxury text-gold">Über LAMISENT</p>
-            <h2 className="mt-4 text-3xl uppercase text-ivory md:text-4xl">
-              Eine Hommage an die <span className="text-gold-gradient">große Parfümerie</span>.
+            <p className="text-[11px] uppercase tracking-luxury text-gold">Über LAMISENT ESSENCE</p>
+            <h2 className="mt-4 text-3xl uppercase leading-tight text-ivory md:text-4xl">
+              Eine Hommage an die große <span className="text-gold-gradient">Parfümerie</span>.
             </h2>
             <p className="mt-6 text-sm leading-relaxed text-ivory-muted">
-              LAMISENT ESSENCE entsteht in kleinen Chargen aus hochkonzentrierten Ölen — eine sorgfältige Übersetzung legendärer Düfte in ein Extrait, das auf der Haut bleibt.
+              LAMISENT ESSENCE entsteht aus dem Anspruch, große Parfümerie zugänglich zu machen. Wir arbeiten mit
+              hochkonzentrierten Essenzen, füllen in kleinen Chargen ab und verzichten auf alles, was einen Duft
+              teurer macht, ohne ihn besser zu machen.
             </p>
             <p className="mt-4 text-sm leading-relaxed text-ivory-muted">
-              Wir glauben, dass exzellenter Duft kein Privileg sein sollte. Deshalb verzichten wir auf Werbespektakel und investieren in Rohstoffe, Konzentration und Verpackung.
+              Jede Komposition ist von einem Original inspiriert und trägt trotzdem eine eigene Signatur: 25–30 %
+              Duftöl, langer Nachhall, Abfüllung in Deutschland.
             </p>
-            <div className="mt-8 flex gap-8">
-              <Stat n="25–30%" label="Duftöl-Konzentration" />
-              <Stat n="≤ 12 h" label="Sillage" />
+            <div className="mt-10 grid grid-cols-3 gap-6">
+              <Stat n="25–30 %" label="Duftölanteil" />
+              <Stat n="1–3 Tage" label="Versand" />
               <Stat n="10" label="Signature-Düfte" />
             </div>
-            <a href="/ueber-uns" className="mt-10 inline-flex items-center gap-3 text-[11px] uppercase tracking-luxury text-gold transition-colors hover:text-gold-soft">
+            <Link
+              to="/ueber-uns"
+              className="mt-10 inline-flex items-center gap-3 text-[11px] uppercase tracking-luxury text-gold transition-colors hover:text-gold-soft"
+            >
               Unsere Geschichte <ArrowRight className="h-3.5 w-3.5" />
-            </a>
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* SALE — now features the ad banner image as the hero of this section */}
-      <section className="bg-charcoal/40 py-24">
-        <div className="mx-auto max-w-7xl px-6">
-          <div className="flex items-end justify-between">
-            <div>
-              <p className="text-[11px] uppercase tracking-luxury text-gold">Aktion</p>
-              <h2 className="mt-3 text-3xl uppercase text-ivory md:text-4xl">15% auf ausgewählte Düfte</h2>
-            </div>
-            <a href="/produkte" className="hidden text-[11px] uppercase tracking-luxury text-ivory-muted transition-colors hover:text-gold md:inline">
-              Alle Angebote →
-            </a>
-          </div>
-          <div className="mt-12 grid items-stretch gap-6 lg:grid-cols-[1fr_1.4fr]">
-            <a href="/produkte" className="group relative block overflow-hidden rounded-sm border border-border">
-              <img src={adBanner.url} alt="Premium Fragrance — 30% Off Aktion" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]" />
-            </a>
-            <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
-              {PRODUCTS.filter((p) => SALE_SLUGS.includes(p.slug)).map((p) => (
-                <ProductCard key={p.slug} product={p} discount={0.15} />
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* NEW ARRIVALS — 2 per row on laptop (2×2 grid) */}
-      <ProductSection eyebrow="Neuheiten" title="Neu in der Kollektion" products={NEW_ARRIVALS} columns="two" />
-
-      {/* ALL 10 */}
-      <ProductSection eyebrow="Kollektion" title="Alle 10 Signature-Düfte" products={PRODUCTS} />
-
-      {/* DISCOVERY SET */}
+      {/* 4 — DISCOVERY SET */}
       <section className="bg-background py-24">
         <div className="mx-auto grid max-w-7xl items-center gap-14 px-6 md:grid-cols-[1fr_1.1fr]">
           <div>
             <p className="text-[11px] uppercase tracking-luxury text-gold">Discovery Set</p>
-            <h2 className="mt-4 text-3xl uppercase text-ivory md:text-4xl">Fünf Düfte, ein Ritual.</h2>
+            <h2 className="mt-4 text-3xl uppercase text-ivory md:text-4xl">Sechs Düfte, ein Ritual.</h2>
             <p className="mt-5 text-sm leading-relaxed text-ivory-muted">
-              Lerne die LAMISENT-Signaturen kennen — fünf 8 ML Atomiseure in edler Box. Der gezahlte Betrag wird beim Kauf eines vollen Flakons vollständig angerechnet.
+              Stelle deine Discovery Box selbst zusammen: sechs 8 ML Atomiseure, frei wählbar aus allen zehn
+              Signature-Düften. {DISCOVERY_BOX.voucher}
             </p>
             <div className="mt-8 flex items-baseline gap-4">
-              <span className="font-display text-3xl text-ivory">{EUR(39.9)}</span>
-              <span className="text-sm text-ivory-muted">5 × 8 ML</span>
+              <span className="font-display text-3xl text-ivory">{EUR(DISCOVERY_BOX.price)}</span>
+              <span className="text-sm text-ivory-muted">6 × 8 ML</span>
             </div>
-            <a href="/sets" className="mt-8 inline-flex items-center gap-3 bg-gold px-7 py-3.5 text-[11px] uppercase tracking-luxury text-ink transition-all hover:bg-gold-soft" style={{ boxShadow: "var(--shadow-gold)" }}>
-              Set ansehen <ArrowRight className="h-3.5 w-3.5" />
-            </a>
+            <Link
+              to="/sets"
+              className="mt-8 inline-flex items-center gap-3 bg-gold px-7 py-3.5 text-[11px] uppercase tracking-luxury text-ink transition-all hover:bg-gold-soft"
+              style={{ boxShadow: "var(--shadow-gold)" }}
+            >
+              Box zusammenstellen <ArrowRight className="h-3.5 w-3.5" />
+            </Link>
           </div>
           <div className="relative">
-            <img src={boxDiscovery.url} alt="LAMISENT Discovery Set" className="mx-auto h-auto w-full max-w-lg object-contain" />
-            <img src={bottle8.url} alt="8 ML Atomiseur" className="absolute -bottom-6 -right-2 h-40 w-auto object-contain" />
+            <img
+              src={boxDiscovery.url}
+              alt="LAMISENT Discovery Box"
+              className="mx-auto h-auto w-full max-w-lg object-contain"
+              loading="lazy"
+            />
+            <img
+              src={bottle8.url}
+              alt="8 ML Atomiseur"
+              className="absolute -bottom-6 -right-2 h-40 w-auto object-contain"
+              loading="lazy"
+            />
           </div>
         </div>
       </section>
 
-      {/* REVIEWS */}
-      <section className="border-y border-border bg-charcoal/40 py-24">
+      {/* 5 — INSTAGRAM */}
+      <section className="border-t border-border bg-charcoal/40 py-24">
         <div className="mx-auto max-w-7xl px-6">
-          <div className="text-center">
-            <p className="text-[11px] uppercase tracking-luxury text-gold">Stimmen unserer Kunden</p>
-            <h2 className="mt-3 text-3xl uppercase text-ivory md:text-4xl">Reflektionen</h2>
+          <div className="flex flex-col items-center text-center">
+            <Instagram className="h-6 w-6 text-gold" />
+            <a
+              href={SOCIALS.instagram}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-4 font-display text-2xl uppercase text-ivory hover:text-gold md:text-3xl"
+            >
+              @lamisent
+            </a>
+            <p className="mt-3 max-w-md text-sm leading-relaxed text-ivory-muted">
+              Folge uns für neue Düfte, Behind-the-Scenes und limitierte Aktionen.
+            </p>
           </div>
-          <div className="mt-14 grid gap-6 md:grid-cols-3">
-            {REVIEWS.map((r) => (
-              <figure key={r.name} className="rounded-sm border border-border bg-background p-7">
-                <Quote className="h-5 w-5 text-gold" />
-                <blockquote className="mt-5 text-sm leading-relaxed text-ivory">„{r.quote}"</blockquote>
-                <figcaption className="mt-6 border-t border-border pt-4">
-                  <p className="font-sans text-[11px] uppercase tracking-luxury text-ivory">{r.name}</p>
-                  <p className="mt-1 text-xs text-ivory-muted">{r.place}</p>
-                </figcaption>
-              </figure>
+          <div className="mt-12 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+            {PRODUCTS.slice(0, 6).map((p) => (
+              <a
+                key={p.slug}
+                href={SOCIALS.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative block aspect-square overflow-hidden rounded-sm border border-border bg-charcoal"
+              >
+                <img
+                  src={p.coverImage ?? p.image}
+                  alt={`LAMISENT ESSENCE ${p.name} auf Instagram`}
+                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  loading="lazy"
+                />
+                <span className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 transition-opacity group-hover:opacity-100">
+                  <Instagram className="h-5 w-5 text-white" />
+                </span>
+              </a>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* NEWSLETTER */}
-      <section className="relative isolate overflow-hidden py-24">
-        <div aria-hidden className="absolute inset-0 -z-10" style={{ background: "radial-gradient(ellipse at 30% 50%, color-mix(in oklab, var(--gold) 30%, transparent), transparent 60%), linear-gradient(180deg, var(--charcoal), var(--matte-black))" }} />
-        <div className="mx-auto grid max-w-7xl items-center gap-12 px-6 md:grid-cols-[1fr_1.1fr]">
-          <div>
-            <img src={boxSingle.url} alt="LAMISENT Verpackung" className="mx-auto h-auto w-full max-w-md object-contain" />
-          </div>
-          <div>
-            <p className="text-[11px] uppercase tracking-luxury text-gold">Newsletter</p>
-            <h2 className="mt-4 text-3xl uppercase leading-tight text-ivory md:text-4xl">
-              Erhalte <span className="text-gold-gradient">15% Rabatt</span><br /> auf deine erste Bestellung.
-            </h2>
-            <p className="mt-5 max-w-md text-sm leading-relaxed text-ivory-muted">
-              Neue Düfte, limitierte Editionen, exklusive Vorteile. Abmeldung jederzeit über einen Klick im Newsletter.
-            </p>
-            <form onSubmit={(e) => e.preventDefault()} className="mt-8 flex w-full max-w-md overflow-hidden rounded-sm border border-border bg-background/60 backdrop-blur">
-              <input type="email" required placeholder="deine@email.de" className="flex-1 bg-transparent px-5 py-3.5 text-sm text-ivory placeholder:text-ivory-muted focus:outline-none" />
-              <button type="submit" className="bg-gold px-6 text-[11px] uppercase tracking-luxury text-ink transition-colors hover:bg-gold-soft">Abonnieren</button>
-            </form>
-            <p className="mt-4 text-[11px] text-ivory-muted">
-              Double-Opt-In. Mit Absenden stimmst du der <a href="/datenschutz" className="underline hover:text-gold">Datenschutzerklärung</a> zu.
-            </p>
+          <div className="mt-10 flex justify-center">
+            <a
+              href={SOCIALS.instagram}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-3 border border-border px-7 py-3.5 text-[11px] uppercase tracking-luxury text-ivory transition-colors hover:border-gold hover:text-gold"
+            >
+              Auf Instagram ansehen <ArrowRight className="h-3.5 w-3.5" />
+            </a>
           </div>
         </div>
       </section>
@@ -370,61 +294,38 @@ function Stat({ n, label }: { n: string; label: string }) {
   );
 }
 
-function ProductSection({
-  eyebrow,
-  title,
-  products,
-  columns = "auto",
-}: {
-  eyebrow: string;
-  title: string;
-  products: Product[];
-  columns?: "auto" | "two";
-}) {
-  const gridClass =
-    columns === "two"
-      ? "mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-2"
-      : "mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4";
-  return (
-    <section className="bg-background py-24">
-      <div className="mx-auto max-w-7xl px-6">
-        <div className="text-center">
-          <p className="text-[11px] uppercase tracking-luxury text-gold">{eyebrow}</p>
-          <h2 className="mt-3 text-3xl uppercase text-ivory md:text-4xl">{title}</h2>
-        </div>
-        <div className={gridClass}>
-          {products.map((p) => (
-            <ProductCard key={p.slug} product={p} />
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function ProductCard({ product: p, discount = 0 }: { product: Product; discount?: number }) {
-  const [sizeIdx, setSizeIdx] = useState(1); // default 30 ML
+function ProductCard({ product: p }: { product: Product }) {
+  const [sizeIdx, setSizeIdx] = useState(0);
   const size = p.sizes[sizeIdx];
-  const price = +(size.price * (1 - discount)).toFixed(2);
-  const compare = discount > 0 ? size.price : null;
+  const add = useCart((s) => s.add);
 
   return (
     <article className="group relative flex flex-col overflow-hidden rounded-sm border border-border bg-charcoal/40 transition-all hover:border-gold/40">
-      <a href={`/produkte/${p.slug}`} className="relative block aspect-[4/5] overflow-hidden bg-charcoal">
-        <img src={p.coverImage ?? p.image} alt={`${p.name} Cover`} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
-        {discount > 0 && (
-          <span className="absolute left-3 top-3 bg-gold px-2 py-1 text-[9px] uppercase tracking-luxury text-ink">
-            -{Math.round(discount * 100)}%
-          </span>
-        )}
-        <div aria-hidden className="absolute inset-0 -z-0 opacity-50" style={{ background: "radial-gradient(ellipse at center, color-mix(in oklab, var(--gold) 18%, transparent), transparent 70%)" }} />
-      </a>
-      <div className="flex flex-col gap-2 p-6">
-        <p className="text-[10px] uppercase tracking-luxury text-gold">{p.family}</p>
-        <h3 className="font-display text-xl uppercase text-ivory">{p.name}</h3>
+      <Link
+        to="/produkte/$slug"
+        params={{ slug: p.slug }}
+        className="relative block aspect-[4/5] overflow-hidden bg-charcoal"
+      >
+        <img
+          src={p.coverImage ?? p.image}
+          alt={`${p.name} — ${p.inspired}`}
+          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+          loading="lazy"
+        />
+      </Link>
+      <div className="flex flex-1 flex-col gap-2 p-5">
+        <p className="text-[10px] uppercase tracking-luxury text-gold">
+          {p.no} · {p.family}
+        </p>
+        <Link
+          to="/produkte/$slug"
+          params={{ slug: p.slug }}
+          className="font-display text-lg uppercase text-ivory hover:text-gold"
+        >
+          {p.name}
+        </Link>
         <p className="text-xs text-ivory-muted">{p.inspired}</p>
 
-        {/* SIZE SELECTOR */}
         <div className="mt-3 flex flex-wrap gap-1.5">
           {p.sizes.map((s, i) => (
             <button
@@ -442,18 +343,17 @@ function ProductCard({ product: p, discount = 0 }: { product: Product; discount?
           ))}
         </div>
 
-        <div className="mt-3 flex items-baseline justify-between">
+        <div className="mt-auto flex items-end justify-between pt-4">
           <div>
-            <div className="flex items-baseline gap-2">
-              <p className="font-sans text-base font-semibold text-ivory">{EUR(price)}</p>
-              {compare && <span className="text-xs text-ivory-muted line-through">{EUR(compare)}</span>}
-            </div>
-            <p className="text-[10px] text-ivory-muted">
-              inkl. MwSt · {EUR((price / size.ml) * 100)} / 100 ml
-            </p>
+            <p className="font-sans text-base font-semibold text-ivory">{EUR(size.price)}</p>
+            <p className="text-[10px] text-ivory-muted">inkl. MwSt</p>
           </div>
-          <button aria-label={`${p.name} ${size.ml} ML in den Warenkorb`} className="inline-flex items-center gap-2 border border-gold px-3 py-2 text-[10px] uppercase tracking-luxury text-gold transition-colors hover:bg-gold hover:text-ink">
-            <ArrowRight className="h-3 w-3" />
+          <button
+            onClick={() => add({ slug: p.slug, ml: size.ml, qty: 1 })}
+            aria-label={`${p.name} ${size.ml} ML in den Warenkorb`}
+            className="inline-flex items-center gap-2 bg-gold px-3 py-2 text-[10px] uppercase tracking-luxury text-ink transition-colors hover:bg-gold-soft"
+          >
+            In den Warenkorb <ArrowRight className="h-3 w-3" />
           </button>
         </div>
       </div>

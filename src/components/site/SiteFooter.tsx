@@ -46,7 +46,7 @@ export function SiteFooter() {
             Impress. Inspire. Remain.
           </p>
           <div className="mt-6 flex items-center gap-4 text-ivory-muted">
-            <a href="#" aria-label="Instagram" className="transition-colors hover:text-gold">
+            <a href="https://www.instagram.com/lamisent" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="transition-colors hover:text-gold">
               <Instagram className="h-4 w-4" />
             </a>
             <a

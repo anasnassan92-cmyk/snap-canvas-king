@@ -37,6 +37,8 @@ export type Product = {
   top?: string[];
   heart?: string[];
   base?: string[];
+  /** Additional remark shown below the base notes */
+  baseNote?: string;
   /** Used when the original house publishes accords instead of a pyramid */
   accords?: { label: string; notes: string[]; note?: string };
   description: string;
@@ -56,7 +58,7 @@ export const PRODUCTS: Product[] = [
     slug: "naxos",
     no: "01",
     name: "Naxos",
-    inspired: "Inspiriert von Naxos",
+    inspired: "Inspiriert von Xerjoff Naxos",
     family: "Tabak · Honig",
     image: naxos.url,
     coverImage: naxosCover.url,
@@ -74,7 +76,7 @@ export const PRODUCTS: Product[] = [
     slug: "reflection",
     no: "02",
     name: "Reflection",
-    inspired: "Inspiriert von Reflection Man",
+    inspired: "Inspiriert von Amouage Reflection Man",
     family: "Floral · Holzig",
     image: reflection.url,
     coverImage: reflectionCover.url,
@@ -92,7 +94,7 @@ export const PRODUCTS: Product[] = [
     slug: "imagination",
     no: "03",
     name: "Imagination",
-    inspired: "Inspiriert von Imagination",
+    inspired: "Inspiriert von Louis Vuitton Imagination",
     family: "Zitrisch · Amber",
     image: imagination.url,
     coverImage: imaginationCover.url,
@@ -112,7 +114,7 @@ export const PRODUCTS: Product[] = [
     slug: "althair",
     no: "04",
     name: "Althaïr",
-    inspired: "Inspiriert von Althaïr",
+    inspired: "Inspiriert von Parfums de Marly Althaïr",
     family: "Vanille · Mandel",
     image: althair.url,
     coverImage: althairCover.url,
@@ -129,8 +131,8 @@ export const PRODUCTS: Product[] = [
   {
     slug: "angels-share",
     no: "05",
-    name: "Angels' Share",
-    inspired: "Inspiriert von Angel's Share",
+    name: "Angel's Share",
+    inspired: "Inspiriert von Kilian Angel's Share",
     family: "Cognac · Tonka",
     image: angelShare.url,
     coverImage: angelShareCover.url,
@@ -138,7 +140,8 @@ export const PRODUCTS: Product[] = [
     direction: "Gourmand · Süß · Würzig · Holzig",
     top: ["Cognac"],
     heart: ["Eichenholz", "Zimt"],
-    base: ["Tonkabohne", "Sandelholz", "Praline", "Vanille"],
+    base: ["Tonkabohne", "Sandelholz"],
+    baseNote: "Ergänzend prägen auch Praline und Vanille den lang anhaltenden Ausklang.",
     description:
       "Opulent, warm und unverwechselbar. Ein intensiver Cognac-Akkord eröffnet die Komposition und trifft anschließend auf würzigen Zimt und Eichenholz. Tonkabohne, Sandelholz, Vanille und gourmandige Nuancen verleihen dem Duft eine cremige Süße und einen luxuriösen, beinahe süchtig machenden Charakter.",
     character: ["Warm", "Süß", "Sinnlich", "Opulent"],
@@ -148,7 +151,7 @@ export const PRODUCTS: Product[] = [
     slug: "blonde-amber",
     no: "06",
     name: "Blonde Amber",
-    inspired: "Inspiriert von Blonde Amber",
+    inspired: "Inspiriert von Clive Christian Blonde Amber",
     family: "Amber · Leder",
     image: blondeAmber.url,
     coverImage: blondeAmberCover.url,
@@ -166,7 +169,7 @@ export const PRODUCTS: Product[] = [
     slug: "blue-talisman",
     no: "07",
     name: "Blue Talisman",
-    inspired: "Inspiriert von Blue Talisman",
+    inspired: "Inspiriert von Ex Nihilo Blue Talisman",
     family: "Aquatisch · Moschus",
     image: blueTalisman.url,
     coverImage: blueTalismanCover.url,
@@ -184,7 +187,7 @@ export const PRODUCTS: Product[] = [
     slug: "side-effect",
     no: "08",
     name: "Side Effect",
-    inspired: "Inspiriert von Side Effect",
+    inspired: "Inspiriert von Initio Side Effect",
     family: "Tabak · Vanille",
     image: sideEffect.url,
     coverImage: sideEffectCover.url,
@@ -222,7 +225,7 @@ export const PRODUCTS: Product[] = [
     slug: "kirke",
     no: "10",
     name: "Kirke",
-    inspired: "Inspiriert von Kirke",
+    inspired: "Inspiriert von Tiziana Terenzi Kirke",
     family: "Frucht · Moschus",
     image: kirke.url,
     coverImage: kirkeCover.url,
@@ -246,8 +249,22 @@ export const DISCOVERY_BOX = {
   price: 44.9,
   slots: 6,
   ml: 8,
-  voucher: "10 € Gutschein für deinen nächsten Duft ab 49,90 € Warenwert.",
+  voucher:
+    "Discovery Box kaufen & 10 € auf deinen nächsten Duft sichern. Einlösbar ab 49,90 € Warenwert auf reguläre Einzelparfums. Nicht mit Bundles oder anderen Rabattaktionen kombinierbar.",
 };
+
+/** Bundle info shown on product pages. */
+export const BUNDLE_INFO = "2 × 50 ML – 89,90 € · 3 × 50 ML – 99,90 € (zeitweise verfügbar)";
+
+/** Bestseller slugs used for the "Mix Bestseller" preset. */
+export const BESTSELLERS = [
+  "naxos",
+  "rouge-540",
+  "angels-share",
+  "althair",
+  "imagination",
+  "side-effect",
+];
 
 export type Bundle = {
   slug: string;

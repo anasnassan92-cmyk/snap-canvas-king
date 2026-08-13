@@ -1,41 +1,33 @@
 import logoGold from "@/assets/lam/logo-gold-transparent.png.asset.json";
 import { PaymentMethodLogos, ShippingLogos } from "@/components/site/PaymentIcons";
-import { Instagram } from "lucide-react";
+import { SOCIALS } from "@/data/products";
+import { Instagram, Music2 } from "lucide-react";
 
-const COLS = [
-  {
-    title: "Marke",
-    links: [
-      { label: "Über LAMISENT", href: "/ueber-uns" },
-      { label: "Unsere Düfte", href: "/produkte" },
-      { label: "Kollektionen", href: "/kollektionen" },
-      { label: "Discovery Set", href: "/sets" },
-    ],
-  },
-  {
-    title: "Hilfe",
-    links: [
-      { label: "Kontakt", href: "/kontakt" },
-      { label: "Versand & Zahlung", href: "/versand-zahlung" },
-      { label: "Rücksendung", href: "/widerruf" },
-      { label: "FAQ", href: "/kontakt" },
-    ],
-  },
-  {
-    title: "Rechtliches",
-    links: [
-      { label: "Impressum", href: "/impressum" },
-      { label: "Datenschutz", href: "/datenschutz" },
-      { label: "AGB", href: "/agb" },
-      { label: "Widerrufsbelehrung", href: "/widerruf" },
-    ],
-  },
+const SHOP_LINKS = [
+  { label: "Alle Düfte", href: "/produkte" },
+  { label: "Discovery Box", href: "/discovery-box" },
+];
+
+const SERVICE_LINKS = [
+  { label: "Kontakt", href: "/kontakt" },
+  { label: "Versand & Zahlung", href: "/versand-zahlung" },
+  { label: "Widerrufsbelehrung", href: "/widerruf" },
+  { label: "AGB", href: "/agb" },
+  { label: "Datenschutz", href: "/datenschutz" },
+  { label: "Impressum", href: "/impressum" },
+];
+
+const SHIPPING_LINES = [
+  "Deutschland – 4,90 €",
+  "Gratis ab 49,90 € (DE)",
+  "Österreich – 9,90 €",
+  "Schweiz – 14,90 €",
 ];
 
 export function SiteFooter() {
   return (
     <footer className="mt-24 border-t border-border bg-matte-black">
-      <div className="mx-auto grid max-w-7xl gap-12 px-6 py-16 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
+      <div className="mx-auto grid max-w-7xl gap-12 px-6 py-16 md:grid-cols-[1.4fr_1fr_1fr_1fr_0.8fr]">
         <div>
           <img src={logoGold.url} alt="LAMISENT ESSENCE" className="h-9 w-auto" />
           <p className="mt-6 max-w-xs text-sm leading-relaxed text-ivory-muted">
@@ -45,42 +37,68 @@ export function SiteFooter() {
           <p className="mt-6 text-[11px] uppercase tracking-luxury text-gold">
             Impress. Inspire. Remain.
           </p>
-          <div className="mt-6 flex items-center gap-4 text-ivory-muted">
-            <a href="https://www.instagram.com/lamisent" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="transition-colors hover:text-gold">
+        </div>
+
+        <div>
+          <h4 className="font-sans text-[11px] uppercase tracking-luxury text-gold">Shop</h4>
+          <ul className="mt-6 space-y-3">
+            {SHOP_LINKS.map((l) => (
+              <li key={l.label}>
+                <a href={l.href} className="text-sm text-ivory/85 transition-colors hover:text-gold">
+                  {l.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div>
+          <h4 className="font-sans text-[11px] uppercase tracking-luxury text-gold">Versand</h4>
+          <ul className="mt-6 space-y-3">
+            {SHIPPING_LINES.map((l) => (
+              <li key={l} className="text-sm text-ivory/85">
+                {l}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div>
+          <h4 className="font-sans text-[11px] uppercase tracking-luxury text-gold">Kundenservice</h4>
+          <ul className="mt-6 space-y-3">
+            {SERVICE_LINKS.map((l) => (
+              <li key={l.label}>
+                <a href={l.href} className="text-sm text-ivory/85 transition-colors hover:text-gold">
+                  {l.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div>
+          <h4 className="font-sans text-[11px] uppercase tracking-luxury text-gold">Folge uns</h4>
+          <div className="mt-6 flex items-center gap-4">
+            <a
+              href={SOCIALS.instagram}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram"
+              className="flex h-10 w-10 items-center justify-center border border-border text-ivory/85 transition-colors hover:border-gold hover:text-gold"
+            >
               <Instagram className="h-4 w-4" />
             </a>
             <a
-              href="https://www.tiktok.com/@lamisent.com"
+              href={SOCIALS.tiktok}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="TikTok"
-
-              className="text-[11px] uppercase tracking-luxury transition-colors hover:text-gold"
+              className="flex h-10 w-10 items-center justify-center border border-border text-ivory/85 transition-colors hover:border-gold hover:text-gold"
             >
-              TikTok
+              <Music2 className="h-4 w-4" />
             </a>
           </div>
         </div>
-
-        {COLS.map((col) => (
-          <div key={col.title}>
-            <h4 className="font-sans text-[11px] uppercase tracking-luxury text-gold">
-              {col.title}
-            </h4>
-            <ul className="mt-6 space-y-3">
-              {col.links.map((l) => (
-                <li key={l.label}>
-                  <a
-                    href={l.href}
-                    className="text-sm text-ivory/85 transition-colors hover:text-gold"
-                  >
-                    {l.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
       </div>
 
       <div className="border-t border-border bg-charcoal/40">
@@ -90,22 +108,12 @@ export function SiteFooter() {
               <h4 className="font-sans text-[11px] uppercase tracking-luxury text-gold">
                 Zahlungsmethoden
               </h4>
-              <p className="mt-3 text-xs leading-relaxed text-ivory-muted">
-                Sichere Bezahlung über Stripe & Klarna. Kauf auf Rechnung, Ratenzahlung
-                und Sofortüberweisung verfügbar.
-              </p>
               <div className="mt-5">
                 <PaymentMethodLogos />
               </div>
             </div>
             <div>
-              <h4 className="font-sans text-[11px] uppercase tracking-luxury text-gold">
-                Versand
-              </h4>
-              <p className="mt-3 text-xs leading-relaxed text-ivory-muted">
-                Versand aus Deutschland mit DHL & DPD in 1–3 Werktagen. Kostenloser
-                Versand ab 49,90 €. Klimaneutraler Versand inklusive.
-              </p>
+              <h4 className="font-sans text-[11px] uppercase tracking-luxury text-gold">Versand</h4>
               <div className="mt-5">
                 <ShippingLogos />
               </div>
@@ -118,7 +126,6 @@ export function SiteFooter() {
           </div>
         </div>
       </div>
-
     </footer>
   );
 }

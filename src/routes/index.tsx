@@ -80,7 +80,7 @@ function HeroSlider() {
 
 function Home() {
   const [showAll, setShowAll] = useState(false);
-  const visible = showAll ? PRODUCTS : PRODUCTS.slice(0, 5);
+
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -243,7 +243,7 @@ function Home() {
               rel="noopener noreferrer"
               className="mt-4 font-display text-2xl uppercase text-ivory hover:text-gold md:text-3xl"
             >
-              @lamisent
+              @LAMISENT
             </a>
             <p className="mt-3 max-w-md text-sm leading-relaxed text-ivory-muted">
               Folge uns für neue Düfte, Behind-the-Scenes und limitierte Aktionen.
@@ -270,14 +270,22 @@ function Home() {
               </a>
             ))}
           </div>
-          <div className="mt-10 flex justify-center">
+          <div className="mt-10 flex flex-wrap justify-center gap-4">
             <a
               href={SOCIALS.instagram}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-3 border border-border px-7 py-3.5 text-[11px] uppercase tracking-luxury text-ivory transition-colors hover:border-gold hover:text-gold"
             >
-              Auf Instagram ansehen <ArrowRight className="h-3.5 w-3.5" />
+              <Instagram className="h-3.5 w-3.5" /> Auf Instagram ansehen
+            </a>
+            <a
+              href={SOCIALS.tiktok}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-3 border border-border px-7 py-3.5 text-[11px] uppercase tracking-luxury text-ivory transition-colors hover:border-gold hover:text-gold"
+            >
+              <Music2 className="h-3.5 w-3.5" /> Auf TikTok folgen
             </a>
           </div>
         </div>

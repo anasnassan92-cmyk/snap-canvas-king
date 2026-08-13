@@ -306,10 +306,6 @@ function Stat({ n, label }: { n: string; label: string }) {
 }
 
 function ProductCard({ product: p }: { product: Product }) {
-  const [sizeIdx, setSizeIdx] = useState(0);
-  const size = p.sizes[sizeIdx];
-  const add = useCart((s) => s.add);
-
   return (
     <article className="group relative flex flex-col overflow-hidden rounded-sm border border-border bg-charcoal/40 transition-all hover:border-gold/40">
       <Link
@@ -325,9 +321,6 @@ function ProductCard({ product: p }: { product: Product }) {
         />
       </Link>
       <div className="flex flex-1 flex-col gap-2 p-5">
-        <p className="text-[10px] uppercase tracking-luxury text-gold">
-          {p.no} · {p.family}
-        </p>
         <Link
           to="/produkte/$slug"
           params={{ slug: p.slug }}
@@ -336,37 +329,9 @@ function ProductCard({ product: p }: { product: Product }) {
           {p.name}
         </Link>
         <p className="text-xs text-ivory-muted">{p.inspired}</p>
-
-        <div className="mt-3 flex flex-wrap gap-1.5">
-          {p.sizes.map((s, i) => (
-            <button
-              key={s.ml}
-              onClick={() => setSizeIdx(i)}
-              className={`border px-2.5 py-1 text-[10px] uppercase tracking-luxury transition-colors ${
-                i === sizeIdx
-                  ? "border-gold bg-gold text-ink"
-                  : "border-border text-ivory-muted hover:border-gold hover:text-gold"
-              }`}
-              aria-label={`${s.ml} ML wählen`}
-            >
-              {s.ml} ML
-            </button>
-          ))}
-        </div>
-
-        <div className="mt-auto flex items-end justify-between pt-4">
-          <div>
-            <p className="font-sans text-base font-semibold text-ivory">{EUR(size.price)}</p>
-            <p className="text-[10px] text-ivory-muted">inkl. MwSt</p>
-          </div>
-          <button
-            onClick={() => add({ slug: p.slug, ml: size.ml, qty: 1 })}
-            aria-label={`${p.name} ${size.ml} ML in den Warenkorb`}
-            className="inline-flex items-center gap-2 bg-gold px-3 py-2 text-[10px] uppercase tracking-luxury text-ink transition-colors hover:bg-gold-soft"
-          >
-            In den Warenkorb <ArrowRight className="h-3 w-3" />
-          </button>
-        </div>
+        <p className="mt-auto pt-4 font-sans text-sm font-semibold text-ivory">
+          ab {EUR(p.sizes[0].price)}
+        </p>
       </div>
     </article>
   );

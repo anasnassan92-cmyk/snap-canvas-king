@@ -18,6 +18,7 @@ import { Route as ProdukteRouteImport } from './routes/produkte'
 import { Route as KontaktRouteImport } from './routes/kontakt'
 import { Route as KollektionenRouteImport } from './routes/kollektionen'
 import { Route as ImpressumRouteImport } from './routes/impressum'
+import { Route as DiscoveryBoxRouteImport } from './routes/discovery-box'
 import { Route as DatenschutzRouteImport } from './routes/datenschutz'
 import { Route as CheckoutRouteImport } from './routes/checkout'
 import { Route as AuthRouteImport } from './routes/auth'
@@ -72,6 +73,11 @@ const KollektionenRoute = KollektionenRouteImport.update({
 const ImpressumRoute = ImpressumRouteImport.update({
   id: '/impressum',
   path: '/impressum',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DiscoveryBoxRoute = DiscoveryBoxRouteImport.update({
+  id: '/discovery-box',
+  path: '/discovery-box',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DatenschutzRoute = DatenschutzRouteImport.update({
@@ -131,6 +137,7 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/checkout': typeof CheckoutRouteWithChildren
   '/datenschutz': typeof DatenschutzRoute
+  '/discovery-box': typeof DiscoveryBoxRoute
   '/impressum': typeof ImpressumRoute
   '/kollektionen': typeof KollektionenRoute
   '/kontakt': typeof KontaktRoute
@@ -151,6 +158,7 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/checkout': typeof CheckoutRouteWithChildren
   '/datenschutz': typeof DatenschutzRoute
+  '/discovery-box': typeof DiscoveryBoxRoute
   '/impressum': typeof ImpressumRoute
   '/kollektionen': typeof KollektionenRoute
   '/kontakt': typeof KontaktRoute
@@ -173,6 +181,7 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/checkout': typeof CheckoutRouteWithChildren
   '/datenschutz': typeof DatenschutzRoute
+  '/discovery-box': typeof DiscoveryBoxRoute
   '/impressum': typeof ImpressumRoute
   '/kollektionen': typeof KollektionenRoute
   '/kontakt': typeof KontaktRoute
@@ -195,6 +204,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/checkout'
     | '/datenschutz'
+    | '/discovery-box'
     | '/impressum'
     | '/kollektionen'
     | '/kontakt'
@@ -215,6 +225,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/checkout'
     | '/datenschutz'
+    | '/discovery-box'
     | '/impressum'
     | '/kollektionen'
     | '/kontakt'
@@ -236,6 +247,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/checkout'
     | '/datenschutz'
+    | '/discovery-box'
     | '/impressum'
     | '/kollektionen'
     | '/kontakt'
@@ -258,6 +270,7 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   CheckoutRoute: typeof CheckoutRouteWithChildren
   DatenschutzRoute: typeof DatenschutzRoute
+  DiscoveryBoxRoute: typeof DiscoveryBoxRoute
   ImpressumRoute: typeof ImpressumRoute
   KollektionenRoute: typeof KollektionenRoute
   KontaktRoute: typeof KontaktRoute
@@ -333,6 +346,13 @@ declare module '@tanstack/react-router' {
       path: '/impressum'
       fullPath: '/impressum'
       preLoaderRoute: typeof ImpressumRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/discovery-box': {
+      id: '/discovery-box'
+      path: '/discovery-box'
+      fullPath: '/discovery-box'
+      preLoaderRoute: typeof DiscoveryBoxRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/datenschutz': {
@@ -450,6 +470,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   CheckoutRoute: CheckoutRouteWithChildren,
   DatenschutzRoute: DatenschutzRoute,
+  DiscoveryBoxRoute: DiscoveryBoxRoute,
   ImpressumRoute: ImpressumRoute,
   KollektionenRoute: KollektionenRoute,
   KontaktRoute: KontaktRoute,
@@ -464,3 +485,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}

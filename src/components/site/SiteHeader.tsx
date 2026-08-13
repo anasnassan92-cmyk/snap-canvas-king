@@ -5,11 +5,8 @@ import { useCart, resolveLines, cartTotals } from "@/lib/cart";
 import { useTheme } from "@/lib/theme";
 
 const NAV = [
-  { label: "Parfums", href: "/produkte" },
-  { label: "Kollektionen", href: "/kollektionen" },
-  { label: "Sets", href: "/sets" },
-  { label: "Über uns", href: "/ueber-uns" },
-  { label: "Kontakt", href: "/kontakt" },
+  { label: "Düfte", href: "/produkte" },
+  { label: "Discovery Box", href: "/discovery-box" },
 ];
 
 export function SiteHeader() {

@@ -5,7 +5,7 @@ import { ArrowRight, ChevronLeft, Truck, ShieldCheck, RotateCcw, Sparkles } from
 import { AnnouncementBar } from "@/components/site/AnnouncementBar";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
-import { PRODUCTS, EUR, type Product } from "@/data/products";
+import { PRODUCTS, BUNDLE_INFO, EUR, type Product } from "@/data/products";
 import { useCart } from "@/lib/cart";
 
 export const Route = createFileRoute("/produkte/$slug")({
@@ -98,7 +98,7 @@ function ProductPage() {
 
               <div className="mt-8">
                 <p className="text-[10px] uppercase tracking-luxury text-ivory-muted">Größe wählen</p>
-                <div className="mt-3 grid grid-cols-4 gap-2">
+                <div className="mt-3 grid grid-cols-3 gap-2">
                   {p.sizes.map((s, i) => (
                     <button
                       key={s.ml}
@@ -188,9 +188,15 @@ function ProductPage() {
                   <div>
                     <dt className="text-[10px] uppercase tracking-luxury text-ivory-muted">Basisnote</dt>
                     <dd className="mt-1 text-ivory">{p.base?.join(" | ")}</dd>
+                    {p.baseNote && (
+                      <dd className="mt-2 text-[11px] leading-relaxed text-ivory-muted">{p.baseNote}</dd>
+                    )}
                   </div>
                 </dl>
               )}
+              <p className="mt-8 border-t border-border pt-4 text-[11px] leading-relaxed text-ivory-muted">
+                <span className="uppercase tracking-luxury text-gold">Bundles:</span> {BUNDLE_INFO}
+              </p>
             </div>
           </div>
 

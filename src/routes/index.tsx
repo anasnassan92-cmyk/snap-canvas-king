@@ -14,7 +14,6 @@ import bannerDark from "@/assets/lam/banner-dark.png.asset.json";
 import bannerModel from "@/assets/lam/banner-model.png.asset.json";
 
 import { PRODUCTS, DISCOVERY_BOX, SOCIALS, EUR, type Product } from "@/data/products";
-import { useCart } from "@/lib/cart";
 
 export const Route = createFileRoute("/")({
   head: () => ({

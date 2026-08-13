@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
-import { ArrowRight, Instagram, Plus } from "lucide-react";
+import { ArrowRight, Instagram, Music2, Plus, Minus } from "lucide-react";
 
 import { AnnouncementBar } from "@/components/site/AnnouncementBar";
 import { SiteHeader } from "@/components/site/SiteHeader";
@@ -109,7 +109,7 @@ function Home() {
               <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
             </Link>
             <Link
-              to="/sets"
+              to="/discovery-box"
               className="inline-flex items-center gap-3 border border-border px-7 py-3.5 text-[11px] uppercase tracking-luxury text-ivory transition-colors hover:border-gold hover:text-gold"
             >
               Discovery Box
@@ -123,23 +123,29 @@ function Home() {
         <div className="mx-auto max-w-7xl px-6">
           <div className="text-center">
             <p className="text-[11px] uppercase tracking-luxury text-gold">Kollektion</p>
-            <h2 className="mt-3 text-3xl uppercase text-ivory md:text-4xl">Die 10 Signature-Düfte</h2>
+            <h2 className="mt-3 text-3xl uppercase text-ivory md:text-4xl">Unsere Düfte</h2>
           </div>
           <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
-            {visible.map((p) => (
+            {PRODUCTS.slice(0, 5).map((p) => (
               <ProductCard key={p.slug} product={p} />
             ))}
           </div>
-          {!showAll && (
-            <div className="mt-12 flex justify-center">
-              <button
-                onClick={() => setShowAll(true)}
-                className="inline-flex items-center gap-3 border border-gold px-8 py-3.5 text-[11px] uppercase tracking-luxury text-gold transition-colors hover:bg-gold hover:text-ink"
-              >
-                Mehr anzeigen <Plus className="h-3.5 w-3.5" />
-              </button>
+          {showAll && (
+            <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+              {PRODUCTS.slice(5).map((p) => (
+                <ProductCard key={p.slug} product={p} />
+              ))}
             </div>
           )}
+          <div className="mt-12 flex justify-center">
+            <button
+              onClick={() => setShowAll((v) => !v)}
+              className="inline-flex items-center gap-3 border border-gold px-8 py-3.5 text-[11px] uppercase tracking-luxury text-gold transition-colors hover:bg-gold hover:text-ink"
+            >
+              {showAll ? "Weniger anzeigen" : "Mehr anzeigen"}
+              {showAll ? <Minus className="h-3.5 w-3.5" /> : <Plus className="h-3.5 w-3.5" />}
+            </button>
+          </div>
         </div>
       </section>
 
@@ -180,32 +186,29 @@ function Home() {
               <Stat n="1–3 Tage" label="Versand" />
               <Stat n="10" label="Signature-Düfte" />
             </div>
-            <Link
-              to="/ueber-uns"
-              className="mt-10 inline-flex items-center gap-3 text-[11px] uppercase tracking-luxury text-gold transition-colors hover:text-gold-soft"
-            >
-              Unsere Geschichte <ArrowRight className="h-3.5 w-3.5" />
-            </Link>
           </div>
         </div>
       </section>
 
       {/* 4 — DISCOVERY SET */}
-      <section className="bg-background py-24">
+      <section className="bg-charcoal/40 py-24">
         <div className="mx-auto grid max-w-7xl items-center gap-14 px-6 md:grid-cols-[1fr_1.1fr]">
           <div>
             <p className="text-[11px] uppercase tracking-luxury text-gold">Discovery Set</p>
             <h2 className="mt-4 text-3xl uppercase text-ivory md:text-4xl">Sechs Düfte, ein Ritual.</h2>
             <p className="mt-5 text-sm leading-relaxed text-ivory-muted">
-              Stelle deine Discovery Box selbst zusammen: sechs 8 ML Atomiseure, frei wählbar aus allen zehn
-              Signature-Düften. {DISCOVERY_BOX.voucher}
+              Stelle deine persönliche Box zusammen – sechs 8 ML Atomiseure, frei gewählt aus unseren zehn
+              Signaturen.
             </p>
             <div className="mt-8 flex items-baseline gap-4">
               <span className="font-display text-3xl text-ivory">{EUR(DISCOVERY_BOX.price)}</span>
               <span className="text-sm text-ivory-muted">6 × 8 ML</span>
             </div>
+            <p className="mt-6 border-l-2 border-gold bg-background/60 px-4 py-3 text-[12px] leading-relaxed text-ivory-muted">
+              {DISCOVERY_BOX.voucher}
+            </p>
             <Link
-              to="/sets"
+              to="/discovery-box"
               className="mt-8 inline-flex items-center gap-3 bg-gold px-7 py-3.5 text-[11px] uppercase tracking-luxury text-ink transition-all hover:bg-gold-soft"
               style={{ boxShadow: "var(--shadow-gold)" }}
             >
